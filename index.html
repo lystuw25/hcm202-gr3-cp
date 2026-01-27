@@ -1,10 +1,13 @@
 <!doctype html>
 <html lang="vi">
- <head>
+
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sản phẩm sáng tạo - Cuốn sách 3D</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&family=Montserrat:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -12,7 +15,8 @@
       box-sizing: border-box;
     }
 
-    html, body {
+    html,
+    body {
       width: 100%;
       height: 100%;
       overflow: hidden;
@@ -45,8 +49,17 @@
     }
 
     @keyframes twinkle {
-      0%, 100% { opacity: var(--min-opacity); transform: scale(1); }
-      50% { opacity: 1; transform: scale(1.3); }
+
+      0%,
+      100% {
+        opacity: var(--min-opacity);
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 1;
+        transform: scale(1.3);
+      }
     }
 
     /* SHOOTING STARS */
@@ -65,9 +78,11 @@
         transform: translateX(0) translateY(0);
         opacity: 1;
       }
+
       70% {
         opacity: 1;
       }
+
       100% {
         transform: translateX(-300px) translateY(200px);
         opacity: 0;
@@ -85,8 +100,15 @@
     }
 
     @keyframes float {
-      0%, 100% { transform: translate(0, 0) scale(1); }
-      50% { transform: translate(30px, -30px) scale(1.1); }
+
+      0%,
+      100% {
+        transform: translate(0, 0) scale(1);
+      }
+
+      50% {
+        transform: translate(30px, -30px) scale(1.1);
+      }
     }
 
     .nebula-1 {
@@ -142,6 +164,7 @@
       height: 700px;
       transform-style: preserve-3d;
       transition: transform 0.6s ease;
+      top: -30px;
     }
 
     /* Cover - Front */
@@ -156,10 +179,10 @@
       transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
       cursor: pointer;
       z-index: 100;
-      box-shadow: 
-        5px 5px 20px rgba(0,0,0,0.5),
-        inset -3px 0 10px rgba(0,0,0,0.3),
-        inset 3px 0 10px rgba(255,255,255,0.05);
+      box-shadow:
+        5px 5px 20px rgba(0, 0, 0, 0.5),
+        inset -3px 0 10px rgba(0, 0, 0, 0.3),
+        inset 3px 0 10px rgba(255, 255, 255, 0.05);
     }
 
     .cover-front::before {
@@ -169,8 +192,8 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: 
-        repeating-linear-gradient(90deg, transparent 0px, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px),
+      background:
+        repeating-linear-gradient(90deg, transparent 0px, transparent 2px, rgba(0, 0, 0, 0.03) 2px, rgba(0, 0, 0, 0.03) 4px),
         url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
       border-radius: 0 8px 8px 0;
       pointer-events: none;
@@ -192,7 +215,7 @@
     /* HOVER EFFECT */
     .cover-front:hover::after {
       border-color: rgba(212, 175, 55, 0.8);
-      box-shadow: 
+      box-shadow:
         0 0 30px rgba(212, 175, 55, 0.4),
         inset 0 0 30px rgba(212, 175, 55, 0.1);
     }
@@ -218,7 +241,7 @@
       font-family: 'Playfair Display', serif;
       font-size: 56px;
       font-weight: 700;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
       margin-bottom: 15px;
       letter-spacing: 3px;
       cursor: pointer;
@@ -228,8 +251,8 @@
     /* CLICKABLE TITLE HOVER */
     .cover-title:hover {
       color: #f0d98d;
-      text-shadow: 
-        2px 2px 4px rgba(0,0,0,0.7),
+      text-shadow:
+        2px 2px 4px rgba(0, 0, 0, 0.7),
         0 0 20px rgba(212, 175, 55, 0.6);
       transform: scale(1.05);
     }
@@ -266,6 +289,15 @@
       justify-content: center;
       align-items: center;
       padding: 40px;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    /* Fix: Hide "Chào mừng" when book is open */
+    /* Updated by: BaoTQ - 27/01/2026 */
+    .book.open .cover-back {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
     }
 
     .cover-back-content {
@@ -298,7 +330,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+      box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
     }
 
     .spine-title {
@@ -310,7 +342,7 @@
       font-size: 16px;
       font-weight: 600;
       letter-spacing: 4px;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
     }
 
     /* Back Board */
@@ -321,7 +353,7 @@
       background: linear-gradient(135deg, #2c1810 0%, #3d2914 50%, #2c1810 100%);
       transform: translateZ(-45px);
       border-radius: 0 8px 8px 0;
-      box-shadow: inset 0 0 30px rgba(0,0,0,0.5);
+      box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.5);
       visibility: hidden;
       opacity: 0;
       transition: visibility 0s 0.6s, opacity 0.3s;
@@ -348,7 +380,7 @@
       background: linear-gradient(180deg, #faf6f0 0%, #f0e6d8 100%);
       padding: 35px 30px;
       overflow-y: auto;
-      border-right: 1px solid rgba(0,0,0,0.1);
+      border-right: 1px solid rgba(0, 0, 0, 0.1);
       transform: translateZ(1px);
       /* HIDDEN BY DEFAULT */
       opacity: 0;
@@ -437,7 +469,8 @@
       transform: rotateY(-180deg);
     }
 
-    .page-front, .page-back {
+    .page-front,
+    .page-back {
       position: absolute;
       width: 100%;
       height: 100%;
@@ -445,20 +478,20 @@
       background: linear-gradient(180deg, #fdfbf7 0%, #f8f4ec 100%);
       padding: 35px 30px;
       overflow-y: auto;
-      border-left: 1px solid rgba(0,0,0,0.05);
+      border-left: 1px solid rgba(0, 0, 0, 0.05);
     }
 
     .page-front {
-      box-shadow: 
-        -2px 0 10px rgba(0,0,0,0.05),
-        inset 2px 0 5px rgba(0,0,0,0.02);
+      box-shadow:
+        -2px 0 10px rgba(0, 0, 0, 0.05),
+        inset 2px 0 5px rgba(0, 0, 0, 0.02);
     }
 
     .page-back {
       transform: rotateY(180deg);
-      box-shadow: 
-        2px 0 10px rgba(0,0,0,0.05),
-        inset -2px 0 5px rgba(0,0,0,0.02);
+      box-shadow:
+        2px 0 10px rgba(0, 0, 0, 0.05),
+        inset -2px 0 5px rgba(0, 0, 0, 0.02);
     }
 
     .page-header {
@@ -474,6 +507,9 @@
       font-family: 'Playfair Display', serif;
       font-size: 26px;
       color: #3d2914;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .page-number {
@@ -518,7 +554,7 @@
       border-radius: 8px;
       overflow: hidden;
       margin: 20px 0;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     }
 
     .video-container video {
@@ -536,7 +572,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0,0,0,0.4);
+      background: rgba(0, 0, 0, 0.4);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -545,7 +581,7 @@
     }
 
     .video-overlay:hover {
-      background: rgba(0,0,0,0.2);
+      background: rgba(0, 0, 0, 0.2);
     }
 
     .play-button {
@@ -641,17 +677,17 @@
     /* Controls - ENHANCED */
     .controls {
       position: absolute;
-      bottom: 35px;
+      bottom: 30px;
       left: 50%;
       transform: translateX(-50%);
       display: flex;
       align-items: center;
-      gap: 18px;
-      padding: 16px 35px;
+      gap: 12px;
+      padding: 10px 20px;
       background: rgba(20, 15, 10, 0.85);
       backdrop-filter: blur(10px);
       border-radius: 50px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
       opacity: 0;
       visibility: hidden;
       transition: all 0.4s ease;
@@ -699,25 +735,27 @@
     .page-indicator {
       font-family: 'Montserrat', sans-serif;
       font-size: 15px;
-      color: rgba(255,255,255,0.8);
+      color: rgba(255, 255, 255, 0.8);
       min-width: 90px;
       text-align: center;
     }
 
-    .close-btn, .toc-btn {
+    .close-btn,
+    .toc-btn {
       padding: 10px 18px;
       background: transparent;
-      border: 1px solid rgba(255,255,255,0.3);
+      border: 1px solid rgba(255, 255, 255, 0.3);
       border-radius: 20px;
-      color: rgba(255,255,255,0.7);
+      color: rgba(255, 255, 255, 0.7);
       font-family: 'Montserrat', sans-serif;
       font-size: 13px;
       cursor: pointer;
       transition: all 0.3s ease;
     }
 
-    .close-btn:hover, .toc-btn:hover {
-      background: rgba(255,255,255,0.1);
+    .close-btn:hover,
+    .toc-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
       color: white;
     }
 
@@ -736,15 +774,22 @@
       transform: translateX(-50%);
       font-family: 'Montserrat', sans-serif;
       font-size: 15px;
-      color: rgba(255,255,255,0.6);
+      color: rgba(255, 255, 255, 0.6);
       text-align: center;
       animation: pulse 2s ease-in-out infinite;
       z-index: 50;
     }
 
     @keyframes pulse {
-      0%, 100% { opacity: 0.6; }
-      50% { opacity: 1; }
+
+      0%,
+      100% {
+        opacity: 0.6;
+      }
+
+      50% {
+        opacity: 1;
+      }
     }
 
     /* Video Modal */
@@ -754,7 +799,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0,0,0,0.95);
+      background: rgba(0, 0, 0, 0.95);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -788,7 +833,7 @@
       right: 0;
       width: 45px;
       height: 45px;
-      background: rgba(255,255,255,0.1);
+      background: rgba(255, 255, 255, 0.1);
       border: none;
       border-radius: 50%;
       color: white;
@@ -801,15 +846,21 @@
     }
 
     .modal-close:hover {
-      background: rgba(255,255,255,0.2);
+      background: rgba(255, 255, 255, 0.2);
       transform: rotate(90deg);
     }
 
     /* States */
+    /* Fix: Hide cover completely when open */
+    /* Updated by: BaoTQ - 27/01/2026 */
     .book.open .cover-front {
       width: 50%;
       left: 50%;
       transform: rotateY(-180deg);
+      /* HIDE COMPLETELY to avoid blocking left content */
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
     }
 
     .book.open .pages-container,
@@ -821,16 +872,41 @@
     }
 
     /* Page layering */
-    .page { z-index: 10; }
-    
-    .page:nth-child(1) { z-index: 18; }
-    .page:nth-child(2) { z-index: 17; }
-    .page:nth-child(3) { z-index: 16; }
-    .page:nth-child(4) { z-index: 15; }
-    .page:nth-child(5) { z-index: 14; }
-    .page:nth-child(6) { z-index: 13; }
-    .page:nth-child(7) { z-index: 12; }
-    .page:nth-child(8) { z-index: 11; }
+    .page {
+      z-index: 10;
+    }
+
+    .page:nth-child(1) {
+      z-index: 18;
+    }
+
+    .page:nth-child(2) {
+      z-index: 17;
+    }
+
+    .page:nth-child(3) {
+      z-index: 16;
+    }
+
+    .page:nth-child(4) {
+      z-index: 15;
+    }
+
+    .page:nth-child(5) {
+      z-index: 14;
+    }
+
+    .page:nth-child(6) {
+      z-index: 13;
+    }
+
+    .page:nth-child(7) {
+      z-index: 12;
+    }
+
+    .page:nth-child(8) {
+      z-index: 11;
+    }
 
     .page.flipped {
       z-index: 5 !important;
@@ -842,7 +918,7 @@
     }
 
     ::-webkit-scrollbar-track {
-      background: rgba(0,0,0,0.05);
+      background: rgba(0, 0, 0, 0.05);
     }
 
     ::-webkit-scrollbar-thumb {
@@ -867,11 +943,11 @@
         width: 700px;
         height: 490px;
       }
-      
+
       .cover-title {
         font-size: 48px;
       }
-      
+
       .page-content {
         font-size: 15px;
       }
@@ -882,7 +958,7 @@
         width: 600px;
         height: 420px;
       }
-      
+
       .cover-title {
         font-size: 40px;
       }
@@ -893,517 +969,537 @@
         width: 90vw;
         height: calc(90vw * 0.7);
       }
-      
+
       .cover-title {
         font-size: 32px;
       }
     }
   </style>
- </head>
- <body>
+</head>
+
+<body>
   <!-- Universe Background -->
   <div class="universe">
-   <div class="stars" id="stars"></div>
-   <div class="nebula nebula-1"></div>
-   <div class="nebula nebula-2"></div>
-   <div class="nebula nebula-3"></div>
+    <div class="stars" id="stars"></div>
+    <div class="nebula nebula-1"></div>
+    <div class="nebula nebula-2"></div>
+    <div class="nebula nebula-3"></div>
   </div>
 
   <!-- Scene Container -->
   <div class="scene-container" id="scene">
-   <div class="book-wrapper" id="bookWrapper">
-    <div class="book" id="book">
-     
-     <!-- Spine -->
-     <div class="spine">
-      <span class="spine-title">SẢN PHẨM SÁNG TẠO</span>
-     </div>
+    <div class="book-wrapper" id="bookWrapper">
+      <div class="book" id="book">
 
-     <!-- Back Board -->
-     <div class="back-board"></div>
+        <!-- Spine -->
+        <div class="spine">
+          <span class="spine-title">SẢN PHẨM SÁNG TẠO</span>
+        </div>
 
-     <!-- Pages Container -->
-     <div class="pages-container" id="pagesContainer">
-      
-      <!-- TOC Panel -->
-      <div class="toc-panel" id="tocPanel">
-       <h2 class="toc-title">Mục Lục</h2>
-       <ul class="toc-list" id="tocList">
-        <li class="toc-item" data-page="0">
-         <span class="toc-number">1</span>
-         <span class="toc-text">Video Giới Thiệu</span>
-        </li>
-        <li class="toc-item" data-page="1">
-         <span class="toc-number">2</span>
-         <span class="toc-text">Giới Thiệu Dự Án</span>
-        </li>
-        <li class="toc-item" data-page="2">
-         <span class="toc-number">3</span>
-         <span class="toc-text">Mục Tiêu & Phạm Vi</span>
-        </li>
-        <li class="toc-item" data-page="3">
-         <span class="toc-number">4</span>
-         <span class="toc-text">Phương Pháp Thực Hiện</span>
-        </li>
-        <li class="toc-item" data-page="4">
-         <span class="toc-number">5</span>
-         <span class="toc-text">Kết Quả Đạt Được</span>
-        </li>
-        <li class="toc-item" data-page="5">
-         <span class="toc-number">6</span>
-         <span class="toc-text">Bài Học Kinh Nghiệm</span>
-        </li>
-        <li class="toc-item" data-page="6">
-         <span class="toc-number">7</span>
-         <span class="toc-text">Hướng Phát Triển</span>
-        </li>
-        <li class="toc-item" data-page="7">
-         <span class="toc-number">8</span>
-         <span class="toc-text">Tài Liệu Tham Khảo</span>
-        </li>
-       </ul>
-      </div>
+        <!-- Back Board -->
+        <div class="back-board"></div>
 
-      <!-- Page 1: Video -->
-      <div class="page" data-index="0">
-       <div class="page-front">
-        <div class="page-header">
-         <h3 class="page-title">🎬 Video Giới Thiệu</h3>
-         <span class="page-number">Trang 1</span>
-        </div>
-        <div class="page-content">
-         <p>Video giới thiệu tổng quan về dự án sáng tạo, trình bày ý tưởng và quá trình thực hiện.</p>
-         
-         <div class="video-container">
-          <video id="pageVideo" src="Video/HCM202TK.mp4" preload="metadata"></video>
-          <div class="video-overlay" id="videoOverlay">
-           <div class="play-button">
-            <svg viewBox="0 0 24 24">
-             <path d="M8 5v14l11-7z"/>
-            </svg>
-           </div>
-          </div>
-         </div>
-         
-         <p style="font-size: 14px; color: #888; text-align: center; margin-top: 12px;">
-          Click để xem video toàn màn hình
-         </p>
-        </div>
-       </div>
-       <div class="page-back">
-        <div class="page-header">
-         <h3 class="page-title">📝 Ghi Chú Video</h3>
-         <span class="page-number">Trang 1b</span>
-        </div>
-        <div class="page-content">
-         <h4>Nội dung chính trong video:</h4>
-         <ul>
-          <li>Giới thiệu ý tưởng sáng tạo</li>
-          <li>Quá trình nghiên cứu và phát triển</li>
-          <li>Demo sản phẩm hoàn thiện</li>
-          <li>Phản hồi từ người dùng thử nghiệm</li>
-         </ul>
-        </div>
-       </div>
-      </div>
+        <!-- Pages Container -->
+        <div class="pages-container" id="pagesContainer">
 
-      <!-- Page 2: Introduction -->
-      <div class="page" data-index="1">
-       <div class="page-front">
-        <div class="page-header">
-         <h3 class="page-title">💡 Giới Thiệu Dự Án</h3>
-         <span class="page-number">Trang 2</span>
-        </div>
-        <div class="page-content">
-         <p>Dự án "Sản phẩm sáng tạo" được khởi xướng với mục đích mang đến giải pháp đổi mới trong lĩnh vực công nghệ giáo dục.</p>
-         
-         <h4>Bối cảnh ra đời</h4>
-         <p>Trong bối cảnh chuyển đổi số đang diễn ra mạnh mẽ, nhu cầu về các công cụ học tập tương tác và trực quan ngày càng tăng cao. Dự án này đáp ứng nhu cầu đó.</p>
-         
-         <h4>Ý tưởng cốt lõi</h4>
-         <p>Kết hợp công nghệ web hiện đại với thiết kế trải nghiệm người dùng để tạo ra sản phẩm vừa hữu ích vừa thú vị.</p>
-        </div>
-       </div>
-       <div class="page-back">
-        <div class="page-header">
-         <h3 class="page-title">👥 Đội Ngũ Thực Hiện</h3>
-         <span class="page-number">Trang 2b</span>
-        </div>
-        <div class="page-content">
-         <h4>Thành viên nhóm</h4>
-         <ul>
-          <li><strong>Trưởng nhóm:</strong> [Trần Quốc Bảo]</li>
-          <li><strong>Designer:</strong> [Nguyễn Xuân Nguyên Giáp]</li>
-          <li><strong>Developer:</strong> [Trần Quốc Bảo]</li>
-          <li><strong>Content:</strong> [Nguyễn Xuân Nguyên Giáp]</li>
-         </ul>
-         
-         <h4>Giảng viên hướng dẫn</h4>
-         <p>[Thầy Mai Ka Đa]</p>
-        </div>
-       </div>
-      </div>
-
-      <!-- Page 3: Goals -->
-      <div class="page" data-index="2">
-       <div class="page-front">
-        <div class="page-header">
-         <h3 class="page-title">🎯 Mục Tiêu & Phạm Vi</h3>
-         <span class="page-number">Trang 3</span>
-        </div>
-        <div class="page-content">
-         <h4>Mục tiêu chính</h4>
-         <ul>
-          <li>Phát triển sản phẩm có tính ứng dụng cao</li>
-          <li>Áp dụng kiến thức đã học vào thực tế</li>
-          <li>Tạo trải nghiệm người dùng xuất sắc</li>
-          <li>Đóng góp vào cộng đồng học tập</li>
-         </ul>
-         
-         <h4>Phạm vi dự án</h4>
-         <p>Dự án tập trung vào việc xây dựng một nền tảng tương tác đa phương tiện, phục vụ cho mục đích giáo dục và trình bày thông tin.</p>
-        </div>
-       </div>
-       <div class="page-back">
-        <div class="page-header">
-         <h3 class="page-title">📊 Chỉ Số Thành Công</h3>
-         <span class="page-number">Trang 3b</span>
-        </div>
-        <div class="page-content">
-         <h4>KPIs đặt ra</h4>
-         <ul>
-          <li>Hoàn thành 100% tính năng cốt lõi</li>
-          <li>Đạt độ hài lòng 90% từ người dùng</li>
-          <li>Tương thích đa nền tảng</li>
-          <li>Hiệu suất tải trang dưới 3 giây</li>
-         </ul>
-        </div>
-       </div>
-      </div>
-
-      <!-- Page 4: Methods -->
-      <div class="page" data-index="3">
-       <div class="page-front">
-        <div class="page-header">
-         <h3 class="page-title">⚙️ Phương Pháp Thực Hiện</h3>
-         <span class="page-number">Trang 4</span>
-        </div>
-        <div class="page-content">
-         <h4>Công nghệ sử dụng</h4>
-         <ul>
-          <li><strong>Frontend:</strong> HTML, CSS, JavaScript</li>
-          <li><strong>3D Graphics:</strong> CSS 3D Transforms</li>
-          <li><strong>Animation:</strong> CSS Transitions & Keyframes</li>
-          <li><strong>Design:</strong> Figma, Adobe XD</li>
-         </ul>
-         
-         <h4>Quy trình phát triển</h4>
-         <p>Áp dụng phương pháp Agile với các sprint 2 tuần, đảm bảo sản phẩm được cải tiến liên tục dựa trên phản hồi.</p>
-        </div>
-       </div>
-       <div class="page-back">
-        <div class="page-header">
-         <h3 class="page-title">📅 Timeline Dự Án</h3>
-         <span class="page-number">Trang 4b</span>
-        </div>
-        <div class="page-content">
-         <h4>Các giai đoạn</h4>
-         <ul>
-          <li><strong>Tuần 1-2:</strong> Nghiên cứu & Lên ý tưởng</li>
-          <li><strong>Tuần 3-4:</strong> Thiết kế giao diện</li>
-          <li><strong>Tuần 5-8:</strong> Phát triển sản phẩm</li>
-          <li><strong>Tuần 9-10:</strong> Testing & Hoàn thiện</li>
-         </ul>
-        </div>
-       </div>
-      </div>
-
-      <!-- Page 5: Results -->
-      <div class="page" data-index="4">
-       <div class="page-front">
-        <div class="page-header">
-         <h3 class="page-title">🏆 Kết Quả Đạt Được</h3>
-         <span class="page-number">Trang 5</span>
-        </div>
-        <div class="page-content">
-         <h4>Thành tựu nổi bật</h4>
-         <ul>
-          <li>Hoàn thành sản phẩm đúng tiến độ</li>
-          <li>Giao diện 3D tương tác mượt mà</li>
-          <li>Tương thích đa trình duyệt</li>
-          <li>Nhận phản hồi tích cực từ người dùng</li>
-         </ul>
-         
-         <h4>Điểm nhấn sáng tạo</h4>
-         <p>Hiệu ứng sách 3D với khả năng lật trang realistic, mang đến trải nghiệm đọc số hóa gần gũi với sách truyền thống.</p>
-        </div>
-       </div>
-       <div class="page-back">
-        <div class="page-header">
-         <h3 class="page-title">📈 Số Liệu Thống Kê</h3>
-         <span class="page-number">Trang 5b</span>
-        </div>
-        <div class="page-content">
-         <h4>Performance Metrics</h4>
-         <ul>
-          <li>Thời gian tải: < 2 giây</li>
-          <li>Frame rate: 60 FPS</li>
-          <li>Lighthouse Score: 95+</li>
-          <li>Responsive trên mọi thiết bị</li>
-         </ul>
-        </div>
-       </div>
-      </div>
-
-      <!-- Page 6: Lessons -->
-      <div class="page" data-index="5">
-       <div class="page-front">
-        <div class="page-header">
-         <h3 class="page-title">📚 Bài Học Kinh Nghiệm</h3>
-         <span class="page-number">Trang 6</span>
-        </div>
-        <div class="page-content">
-         <h4>Những điều học được</h4>
-         <ul>
-          <li>Tầm quan trọng của việc lập kế hoạch chi tiết</li>
-          <li>Kỹ năng làm việc nhóm hiệu quả</li>
-          <li>Cách xử lý vấn đề kỹ thuật phức tạp</li>
-          <li>Quản lý thời gian trong dự án thực tế</li>
-         </ul>
-         
-         <h4>Thách thức đã vượt qua</h4>
-         <p>Tối ưu hóa hiệu suất 3D trên các thiết bị cấu hình thấp là thách thức lớn nhất, đã được giải quyết bằng các kỹ thuật CSS tiên tiến.</p>
-        </div>
-       </div>
-       <div class="page-back">
-        <div class="page-header">
-         <h3 class="page-title">💭 Suy Ngẫm</h3>
-         <span class="page-number">Trang 6b</span>
-        </div>
-        <div class="page-content">
-         <h4>Điều có thể làm tốt hơn</h4>
-         <ul>
-          <li>Thử nghiệm với người dùng sớm hơn</li>
-          <li>Documentation đầy đủ hơn</li>
-          <li>Tích hợp thêm tính năng accessibility</li>
-         </ul>
-        </div>
-       </div>
-      </div>
-
-      <!-- Page 7: Future -->
-      <div class="page" data-index="6">
-       <div class="page-front">
-        <div class="page-header">
-         <h3 class="page-title">🚀 Hướng Phát Triển</h3>
-         <span class="page-number">Trang 7</span>
-        </div>
-        <div class="page-content">
-         <h4>Tính năng dự kiến</h4>
-         <ul>
-          <li>Tích hợp âm thanh và nhạc nền</li>
-          <li>Hỗ trợ đa ngôn ngữ</li>
-          <li>Chế độ đọc tối/sáng</li>
-          <li>Export sang PDF</li>
-          <li>Chia sẻ lên mạng xã hội</li>
-         </ul>
-         
-         <h4>Mở rộng ứng dụng</h4>
-         <p>Phát triển thành nền tảng tạo sách 3D online, cho phép người dùng tự tạo và chia sẻ sách của riêng mình.</p>
-        </div>
-       </div>
-       <div class="page-back">
-        <div class="page-header">
-         <h3 class="page-title">🎯 Roadmap 2026</h3>
-         <span class="page-number">Trang 7b</span>
-        </div>
-        <div class="page-content">
-         <h4>Kế hoạch phát triển</h4>
-         <ul>
-          <li><strong>Q1:</strong> Ra mắt phiên bản beta</li>
-          <li><strong>Q2:</strong> Thu thập phản hồi & cải tiến</li>
-          <li><strong>Q3:</strong> Tích hợp tính năng mới</li>
-          <li><strong>Q4:</strong> Ra mắt chính thức</li>
-         </ul>
-        </div>
-       </div>
-      </div>
-
-      <!-- Page 8: References -->
-      <div class="page" data-index="7">
-       <div class="page-front">
-        <div class="page-header">
-         <h3 class="page-title">📑 Tài Liệu Tham Khảo</h3>
-         <span class="page-number">Trang 8</span>
-        </div>
-        <div class="page-content">
-         <div class="ref-list">
-          <div class="ref-item">
-           <span class="ref-icon">📄</span>
-           <div class="ref-content">
-            <div class="ref-title">CSS 3D Transforms - MDN Web Docs</div>
-            <div class="ref-desc">Tài liệu kỹ thuật về CSS 3D transformations</div>
-            <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_transforms" target="_blank" rel="noopener noreferrer" class="ref-link">
-             Xem tài liệu
-             <svg viewBox="0 0 24 24" fill="currentColor">
-              <path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7zm-2 16H5V7h7V5H5a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-7h-2v7H7z"/>
-             </svg>
-            </a>
-           </div>
+          <!-- TOC Panel -->
+          <div class="toc-panel" id="tocPanel">
+            <h2 class="toc-title">Mục Lục</h2>
+            <ul class="toc-list" id="tocList">
+              <li class="toc-item" data-page="0">
+                <span class="toc-number">1</span>
+                <span class="toc-text">Video Giới Thiệu</span>
+              </li>
+              <li class="toc-item" data-page="1">
+                <span class="toc-number">2</span>
+                <span class="toc-text">Giới Thiệu Dự Án</span>
+              </li>
+              <li class="toc-item" data-page="2">
+                <span class="toc-number">3</span>
+                <span class="toc-text">Mục Tiêu & Phạm Vi</span>
+              </li>
+              <li class="toc-item" data-page="3">
+                <span class="toc-number">4</span>
+                <span class="toc-text">Phương Pháp Thực Hiện</span>
+              </li>
+              <li class="toc-item" data-page="4">
+                <span class="toc-number">5</span>
+                <span class="toc-text">Kết Quả Đạt Được</span>
+              </li>
+              <li class="toc-item" data-page="5">
+                <span class="toc-number">6</span>
+                <span class="toc-text">Bài Học Kinh Nghiệm</span>
+              </li>
+              <li class="toc-item" data-page="6">
+                <span class="toc-number">7</span>
+                <span class="toc-text">Hướng Phát Triển</span>
+              </li>
+              <li class="toc-item" data-page="7">
+                <span class="toc-number">8</span>
+                <span class="toc-text">Tài Liệu Tham Khảo</span>
+              </li>
+            </ul>
           </div>
 
-          <div class="ref-item">
-           <span class="ref-icon">🌐</span>
-           <div class="ref-content">
-            <div class="ref-title">W3Schools CSS Tutorial</div>
-            <div class="ref-desc">Hướng dẫn CSS từ cơ bản đến nâng cao</div>
-            <a href="https://www.w3schools.com/css/" target="_blank" rel="noopener noreferrer" class="ref-link">
-             Truy cập website
-             <svg viewBox="0 0 24 24" fill="currentColor">
-              <path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7zm-2 16H5V7h7V5H5a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-7h-2v7H7z"/>
-             </svg>
-            </a>
-           </div>
+          <!-- Page 1: Video -->
+          <div class="page" data-index="0">
+            <div class="page-front">
+              <div class="page-header">
+                <h3 class="page-title">🎬 Video Giới Thiệu</h3>
+                <span class="page-number">Trang 1</span>
+              </div>
+              <div class="page-content">
+                <p>Video giới thiệu tổng quan về dự án sáng tạo, trình bày ý tưởng và quá trình thực hiện.</p>
+
+                <div class="video-container">
+                  <video id="pageVideo" src="Video/HCM202TK.mp4" preload="metadata"></video>
+                  <div class="video-overlay" id="videoOverlay">
+                    <div class="play-button">
+                      <svg viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z" />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+
+                <p style="font-size: 14px; color: #888; text-align: center; margin-top: 12px;">
+                  Click để xem video toàn màn hình
+                </p>
+              </div>
+            </div>
+            <div class="page-back">
+              <div class="page-header">
+                <h3 class="page-title">📝 Ghi Chú Video</h3>
+                <span class="page-number">Trang 1b</span>
+              </div>
+              <div class="page-content">
+                <h4>Nội dung chính trong video:</h4>
+                <ul>
+                  <li>Giới thiệu ý tưởng sáng tạo</li>
+                  <li>Quá trình nghiên cứu và phát triển</li>
+                  <li>Demo sản phẩm hoàn thiện</li>
+                  <li>Phản hồi từ người dùng thử nghiệm</li>
+                </ul>
+              </div>
+            </div>
           </div>
 
-          <div class="ref-item">
-           <span class="ref-icon">🎥</span>
-           <div class="ref-content">
-            <div class="ref-title">YouTube: Advanced CSS Animations</div>
-            <div class="ref-desc">Video hướng dẫn tạo animation phức tạp</div>
-            <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" class="ref-link">
-             Xem video
-             <svg viewBox="0 0 24 24" fill="currentColor">
-              <path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7zm-2 16H5V7h7V5H5a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-7h-2v7H7z"/>
-             </svg>
-            </a>
-           </div>
+          <!-- Page 2: Introduction -->
+          <div class="page" data-index="1">
+            <div class="page-front">
+              <div class="page-header">
+                <h3 class="page-title">💡 Giới Thiệu Dự Án</h3>
+                <span class="page-number">Trang 2</span>
+              </div>
+              <div class="page-content">
+                <p>Dự án "Sản phẩm sáng tạo" được khởi xướng với mục đích mang đến giải pháp đổi mới trong lĩnh vực công
+                  nghệ giáo dục.</p>
+
+                <h4>Bối cảnh ra đời</h4>
+                <p>Trong bối cảnh chuyển đổi số đang diễn ra mạnh mẽ, nhu cầu về các công cụ học tập tương tác và trực
+                  quan ngày càng tăng cao. Dự án này đáp ứng nhu cầu đó.</p>
+
+                <h4>Ý tưởng cốt lõi</h4>
+                <p>Kết hợp công nghệ web hiện đại với thiết kế trải nghiệm người dùng để tạo ra sản phẩm vừa hữu ích vừa
+                  thú vị.</p>
+              </div>
+            </div>
+            <div class="page-back">
+              <div class="page-header">
+                <h3 class="page-title">👥 Đội Ngũ Thực Hiện</h3>
+                <span class="page-number">Trang 2b</span>
+              </div>
+              <div class="page-content">
+                <h4>Thành viên nhóm</h4>
+                <ul>
+                  <li><strong>Trưởng nhóm:</strong> [BaoTQ]</li>
+                  <li><strong>Thiết kế/Phát triển:</strong> [GiapNX], [BaoTQ]</li>
+                  <li><strong>Nội dung:</strong> [Mọi thành viên nhóm chủ đề 3]</li>
+                </ul>
+
+                <h4>Giảng viên hướng dẫn</h4>
+                <p>[Thầy Mai K Đa]</p>
+              </div>
+            </div>
           </div>
 
-          <div class="ref-item">
-           <span class="ref-icon">📚</span>
-           <div class="ref-content">
-            <div class="ref-title">Sách: CSS Secrets - Lea Verou</div>
-            <div class="ref-desc">Cuốn sách về các kỹ thuật CSS nâng cao</div>
-            <a href="https://www.oreilly.com/library/view/css-secrets/9781449372736/" target="_blank" rel="noopener noreferrer" class="ref-link">
-             Xem thông tin
-             <svg viewBox="0 0 24 24" fill="currentColor">
-              <path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7zm-2 16H5V7h7V5H5a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-7h-2v7H7z"/>
-             </svg>
-            </a>
-           </div>
+          <!-- Page 3: Goals -->
+          <div class="page" data-index="2">
+            <div class="page-front">
+              <div class="page-header">
+                <h3 class="page-title">🎯 Mục Tiêu & Phạm Vi</h3>
+                <span class="page-number">Trang 3</span>
+              </div>
+              <div class="page-content">
+                <h4>Mục tiêu chính</h4>
+                <ul>
+                  <li>Phát triển sản phẩm có tính ứng dụng cao</li>
+                  <li>Áp dụng kiến thức đã học vào thực tế</li>
+                  <li>Tạo trải nghiệm người dùng xuất sắc</li>
+                  <li>Đóng góp vào cộng đồng học tập</li>
+                </ul>
+
+                <h4>Phạm vi dự án</h4>
+                <p>Dự án tập trung vào việc xây dựng một nền tảng tương tác đa phương tiện, phục vụ cho mục đích giáo
+                  dục và trình bày thông tin.</p>
+              </div>
+            </div>
+            <div class="page-back">
+              <div class="page-header">
+                <h3 class="page-title">📊 Chỉ Số Thành Công</h3>
+                <span class="page-number">Trang 3b</span>
+              </div>
+              <div class="page-content">
+                <h4>KPIs đặt ra</h4>
+                <ul>
+                  <li>Hoàn thành 100% tính năng cốt lõi</li>
+                  <li>Đạt độ hài lòng 90% từ người dùng</li>
+                  <li>Tương thích đa nền tảng</li>
+                  <li>Hiệu suất tải trang dưới 3 giây</li>
+                </ul>
+              </div>
+            </div>
           </div>
-         </div>
+
+          <!-- Page 4: Methods -->
+          <div class="page" data-index="3">
+            <div class="page-front">
+              <div class="page-header">
+                <h3 class="page-title">⚙️ Phương Pháp Thực Hiện</h3>
+                <span class="page-number">Trang 4</span>
+              </div>
+              <div class="page-content">
+                <h4>Công nghệ sử dụng</h4>
+                <ul>
+                  <li><strong>Frontend:</strong> HTML, CSS, JavaScript</li>
+                  <li><strong>3D Graphics:</strong> CSS 3D Transforms</li>
+                  <li><strong>Animation:</strong> CSS Transitions & Keyframes</li>
+                  <li><strong>Design:</strong> Figma, Adobe XD</li>
+                </ul>
+
+                <h4>Quy trình phát triển</h4>
+                <p>Áp dụng phương pháp Agile với các sprint 2 tuần, đảm bảo sản phẩm được cải tiến liên tục dựa trên
+                  phản hồi.</p>
+              </div>
+            </div>
+            <div class="page-back">
+              <div class="page-header">
+                <h3 class="page-title">📅 Timeline Dự Án</h3>
+                <span class="page-number">Trang 4b</span>
+              </div>
+              <div class="page-content">
+                <h4>Các giai đoạn</h4>
+                <ul>
+                  <li><strong>Tuần 1-2:</strong> Nghiên cứu & Lên ý tưởng</li>
+                  <li><strong>Tuần 3-4:</strong> Thiết kế giao diện</li>
+                  <li><strong>Tuần 5-8:</strong> Phát triển sản phẩm</li>
+                  <li><strong>Tuần 9-10:</strong> Testing & Hoàn thiện</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Page 5: Results -->
+          <div class="page" data-index="4">
+            <div class="page-front">
+              <div class="page-header">
+                <h3 class="page-title">🏆 Kết Quả Đạt Được</h3>
+                <span class="page-number">Trang 5</span>
+              </div>
+              <div class="page-content">
+                <h4>Thành tựu nổi bật</h4>
+                <ul>
+                  <li>Hoàn thành sản phẩm đúng tiến độ</li>
+                  <li>Giao diện 3D tương tác mượt mà</li>
+                  <li>Tương thích đa trình duyệt</li>
+                  <li>Nhận phản hồi tích cực từ người dùng</li>
+                </ul>
+
+                <h4>Điểm nhấn sáng tạo</h4>
+                <p>Hiệu ứng sách 3D với khả năng lật trang realistic, mang đến trải nghiệm đọc số hóa gần gũi với sách
+                  truyền thống.</p>
+              </div>
+            </div>
+            <div class="page-back">
+              <div class="page-header">
+                <h3 class="page-title">📈 Số Liệu Thống Kê</h3>
+                <span class="page-number">Trang 5b</span>
+              </div>
+              <div class="page-content">
+                <h4>Performance Metrics</h4>
+                <ul>
+                  <li>Thời gian tải: < 2 giây</li>
+                  <li>Frame rate: 60 FPS</li>
+                  <li>Lighthouse Score: 95+</li>
+                  <li>Responsive trên mọi thiết bị</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Page 6: Lessons -->
+          <div class="page" data-index="5">
+            <div class="page-front">
+              <div class="page-header">
+                <h3 class="page-title">📚 Bài Học Kinh Nghiệm</h3>
+                <span class="page-number">Trang 6</span>
+              </div>
+              <div class="page-content">
+                <h4>Những điều học được</h4>
+                <ul>
+                  <li>Tầm quan trọng của việc lập kế hoạch chi tiết</li>
+                  <li>Kỹ năng làm việc nhóm hiệu quả</li>
+                  <li>Cách xử lý vấn đề kỹ thuật phức tạp</li>
+                  <li>Quản lý thời gian trong dự án thực tế</li>
+                </ul>
+
+                <h4>Thách thức đã vượt qua</h4>
+                <p>Tối ưu hóa hiệu suất 3D trên các thiết bị cấu hình thấp là thách thức lớn nhất, đã được giải quyết
+                  bằng các kỹ thuật CSS tiên tiến.</p>
+              </div>
+            </div>
+            <div class="page-back">
+              <div class="page-header">
+                <h3 class="page-title">💭 Suy Ngẫm</h3>
+                <span class="page-number">Trang 6b</span>
+              </div>
+              <div class="page-content">
+                <h4>Điều có thể làm tốt hơn</h4>
+                <ul>
+                  <li>Thử nghiệm với người dùng sớm hơn</li>
+                  <li>Documentation đầy đủ hơn</li>
+                  <li>Tích hợp thêm tính năng accessibility</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Page 7: Future -->
+          <div class="page" data-index="6">
+            <div class="page-front">
+              <div class="page-header">
+                <h3 class="page-title">🚀 Hướng Phát Triển</h3>
+                <span class="page-number">Trang 7</span>
+              </div>
+              <div class="page-content">
+                <h4>Tính năng dự kiến</h4>
+                <ul>
+                  <li>Tích hợp âm thanh và nhạc nền</li>
+                  <li>Hỗ trợ đa ngôn ngữ</li>
+                  <li>Chế độ đọc tối/sáng</li>
+                  <li>Export sang PDF</li>
+                  <li>Chia sẻ lên mạng xã hội</li>
+                </ul>
+
+                <h4>Mở rộng ứng dụng</h4>
+                <p>Phát triển thành nền tảng tạo sách 3D online, cho phép người dùng tự tạo và chia sẻ sách của riêng
+                  mình.</p>
+              </div>
+            </div>
+            <div class="page-back">
+              <div class="page-header">
+                <h3 class="page-title">🎯 Roadmap 2026</h3>
+                <span class="page-number">Trang 7b</span>
+              </div>
+              <div class="page-content">
+                <h4>Kế hoạch phát triển</h4>
+                <ul>
+                  <li><strong>Q1:</strong> Ra mắt phiên bản beta</li>
+                  <li><strong>Q2:</strong> Thu thập phản hồi & cải tiến</li>
+                  <li><strong>Q3:</strong> Tích hợp tính năng mới</li>
+                  <li><strong>Q4:</strong> Ra mắt chính thức</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Page 8: References -->
+          <div class="page" data-index="7">
+            <div class="page-front">
+              <div class="page-header">
+                <h3 class="page-title">📑 Tài Liệu Tham Khảo</h3>
+                <span class="page-number">Trang 8</span>
+              </div>
+              <div class="page-content">
+                <div class="ref-list">
+                  <div class="ref-item">
+                    <span class="ref-icon">📄</span>
+                    <div class="ref-content">
+                      <div class="ref-title">CSS 3D Transforms - MDN Web Docs</div>
+                      <div class="ref-desc">Tài liệu kỹ thuật về CSS 3D transformations</div>
+                      <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_transforms" target="_blank"
+                        rel="noopener noreferrer" class="ref-link">
+                        Xem tài liệu
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                          <path
+                            d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7zm-2 16H5V7h7V5H5a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-7h-2v7H7z" />
+                        </svg>
+                      </a>
+                    </div>
+                  </div>
+
+                  <div class="ref-item">
+                    <span class="ref-icon">🌐</span>
+                    <div class="ref-content">
+                      <div class="ref-title">W3Schools CSS Tutorial</div>
+                      <div class="ref-desc">Hướng dẫn CSS từ cơ bản đến nâng cao</div>
+                      <a href="https://www.w3schools.com/css/" target="_blank" rel="noopener noreferrer"
+                        class="ref-link">
+                        Truy cập website
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                          <path
+                            d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7zm-2 16H5V7h7V5H5a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-7h-2v7H7z" />
+                        </svg>
+                      </a>
+                    </div>
+                  </div>
+
+                  <div class="ref-item">
+                    <span class="ref-icon">🎥</span>
+                    <div class="ref-content">
+                      <div class="ref-title">YouTube: Advanced CSS Animations</div>
+                      <div class="ref-desc">Video hướng dẫn tạo animation phức tạp</div>
+                      <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" class="ref-link">
+                        Xem video
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                          <path
+                            d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7zm-2 16H5V7h7V5H5a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-7h-2v7H7z" />
+                        </svg>
+                      </a>
+                    </div>
+                  </div>
+
+                  <div class="ref-item">
+                    <span class="ref-icon">📚</span>
+                    <div class="ref-content">
+                      <div class="ref-title">Sách: CSS Secrets - Lea Verou</div>
+                      <div class="ref-desc">Cuốn sách về các kỹ thuật CSS nâng cao</div>
+                      <a href="https://www.oreilly.com/library/view/css-secrets/9781449372736/" target="_blank"
+                        rel="noopener noreferrer" class="ref-link">
+                        Xem thông tin
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                          <path
+                            d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7zm-2 16H5V7h7V5H5a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-7h-2v7H7z" />
+                        </svg>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="page-back">
+              <div class="page-header">
+                <h3 class="page-title">🔗 Tài Nguyên Bổ Sung</h3>
+                <span class="page-number">Trang 8b</span>
+              </div>
+              <div class="page-content">
+                <div class="ref-list">
+                  <div class="ref-item">
+                    <span class="ref-icon">🧑‍💻</span>
+                    <div class="ref-content">
+                      <div class="ref-title">GitHub Repository</div>
+                      <div class="ref-desc">Mã nguồn dự án trên GitHub</div>
+                      <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="ref-link">
+                        Xem mã nguồn
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                          <path
+                            d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7zm-2 16H5V7h7V5H5a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-7h-2v7H7z" />
+                        </svg>
+                      </a>
+                    </div>
+                  </div>
+
+                  <div class="ref-item">
+                    <span class="ref-icon">🔗</span>
+                    <div class="ref-content">
+                      <div class="ref-title">CodePen Examples</div>
+                      <div class="ref-desc">Các ví dụ tương tác trên CodePen</div>
+                      <a href="https://codepen.io" target="_blank" rel="noopener noreferrer" class="ref-link">
+                        Xem demo
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                          <path
+                            d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7zm-2 16H5V7h7V5H5a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-7h-2v7H7z" />
+                        </svg>
+                      </a>
+                    </div>
+                  </div>
+
+                  <div class="ref-item">
+                    <span class="ref-icon">📖</span>
+                    <div class="ref-content">
+                      <div class="ref-title">Smashing Magazine</div>
+                      <div class="ref-desc">Bài viết về web design & development</div>
+                      <a href="https://www.smashingmagazine.com" target="_blank" rel="noopener noreferrer"
+                        class="ref-link">
+                        Đọc bài viết
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                          <path
+                            d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7zm-2 16H5V7h7V5H5a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-7h-2v7H7z" />
+                        </svg>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
-       </div>
-       <div class="page-back">
-        <div class="page-header">
-         <h3 class="page-title">🔗 Tài Nguyên Bổ Sung</h3>
-         <span class="page-number">Trang 8b</span>
+
+        <!-- Cover Front -->
+        <div class="cover-front" id="coverFront">
+          <div class="cover-content">
+            <div class="cover-ornament">✦ ❖ ✦</div>
+            <h1 class="cover-title" id="coverTitle">Sản phẩm<br>sáng tạo</h1>
+            <p class="cover-subtitle">Creative Product</p>
+          </div>
+          <span class="cover-year">2026</span>
+
+          <div class="cover-back">
+            <div class="cover-back-content">
+              <h3>Chào mừng!</h3>
+              <p>Cảm ơn bạn đã mở cuốn sách này. Hãy khám phá những trang nội dung bên phải và sử dụng mục lục để điều
+                hướng.</p>
+            </div>
+          </div>
         </div>
-        <div class="page-content">
-         <div class="ref-list">
-          <div class="ref-item">
-           <span class="ref-icon">🧑‍💻</span>
-           <div class="ref-content">
-            <div class="ref-title">GitHub Repository</div>
-            <div class="ref-desc">Mã nguồn dự án trên GitHub</div>
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="ref-link">
-             Xem mã nguồn
-             <svg viewBox="0 0 24 24" fill="currentColor">
-              <path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7zm-2 16H5V7h7V5H5a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-7h-2v7H7z"/>
-             </svg>
-            </a>
-           </div>
-          </div>
 
-          <div class="ref-item">
-           <span class="ref-icon">🔗</span>
-           <div class="ref-content">
-            <div class="ref-title">CodePen Examples</div>
-            <div class="ref-desc">Các ví dụ tương tác trên CodePen</div>
-            <a href="https://codepen.io" target="_blank" rel="noopener noreferrer" class="ref-link">
-             Xem demo
-             <svg viewBox="0 0 24 24" fill="currentColor">
-              <path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7zm-2 16H5V7h7V5H5a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-7h-2v7H7z"/>
-             </svg>
-            </a>
-           </div>
-          </div>
-
-          <div class="ref-item">
-           <span class="ref-icon">📖</span>
-           <div class="ref-content">
-            <div class="ref-title">Smashing Magazine</div>
-            <div class="ref-desc">Bài viết về web design & development</div>
-            <a href="https://www.smashingmagazine.com" target="_blank" rel="noopener noreferrer" class="ref-link">
-             Đọc bài viết
-             <svg viewBox="0 0 24 24" fill="currentColor">
-              <path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7zm-2 16H5V7h7V5H5a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-7h-2v7H7z"/>
-             </svg>
-            </a>
-           </div>
-          </div>
-         </div>
-        </div>
-       </div>
       </div>
-
-     </div>
-
-     <!-- Cover Front -->
-     <div class="cover-front" id="coverFront">
-      <div class="cover-content">
-       <div class="cover-ornament">✦ ❖ ✦</div>
-       <h1 class="cover-title" id="coverTitle">Sản phẩm<br>sáng tạo</h1>
-       <p class="cover-subtitle">Creative Product</p>
-      </div>
-      <span class="cover-year">2026</span>
-
-      <div class="cover-back">
-       <div class="cover-back-content">
-        <h3>Chào mừng!</h3>
-        <p>Cảm ơn bạn đã mở cuốn sách này. Hãy khám phá những trang nội dung bên phải và sử dụng mục lục để điều hướng.</p>
-       </div>
-      </div>
-     </div>
-
     </div>
-   </div>
   </div>
 
   <!-- Controls -->
   <div class="controls" id="controls">
-   <button class="toc-btn" id="tocBtn">📖 Mục lục</button>
-   
-   <button class="ctrl-btn" id="prevBtn" title="Trang trước">
-    <svg viewBox="0 0 24 24">
-     <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
-    </svg>
-   </button>
-   
-   <span class="page-indicator" id="pageIndicator">Trang 1/8</span>
-   
-   <button class="ctrl-btn" id="nextBtn" title="Trang sau">
-    <svg viewBox="0 0 24 24">
-     <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
-    </svg>
-   </button>
-   
-   <button class="close-btn" id="closeBtn">Đóng sách</button>
+    <button class="toc-btn" id="tocBtn">📖 Mục lục</button>
+
+    <button class="ctrl-btn" id="prevBtn" title="Trang trước">
+      <svg viewBox="0 0 24 24">
+        <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+      </svg>
+    </button>
+
+    <span class="page-indicator" id="pageIndicator">Trang 1/8</span>
+
+    <button class="ctrl-btn" id="nextBtn" title="Trang sau">
+      <svg viewBox="0 0 24 24">
+        <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+      </svg>
+    </button>
+
+    <button class="close-btn" id="closeBtn">Đóng sách</button>
   </div>
 
   <!-- Open Hint -->
   <div class="open-hint" id="openHint">
-   ✨ Click vào bìa sách để mở ✨
+    ✨ Click vào bìa sách để mở ✨
   </div>
 
   <!-- Video Modal -->
   <div class="video-modal" id="videoModal">
-   <div class="modal-content">
-    <button class="modal-close" id="modalClose">×</button>
-    <video id="modalVideo" src="Video/HCM202TK.mp4" controls></video>
-   </div>
+    <div class="modal-content">
+      <button class="modal-close" id="modalClose">×</button>
+      <video id="modalVideo" src="Video/HCM202TK.mp4" controls></video>
+    </div>
   </div>
 
   <script>
@@ -1441,7 +1537,7 @@
     // Generate Stars - 300 STARS + SHOOTING STARS
     function generateStars() {
       const starsContainer = document.getElementById('stars');
-      
+
       // Regular stars - 300
       for (let i = 0; i < 300; i++) {
         const star = document.createElement('div');
@@ -1471,18 +1567,18 @@
     // Open Book
     function openBook() {
       if (isOpen) return;
-      
+
       isOpen = true;
       currentPage = 0;
       book.classList.add('open');
       controls.classList.add('visible');
       openHint.style.display = 'none';
-      
+
       // Don't show TOC immediately
       isTocVisible = false;
       tocPanel.classList.remove('active');
       tocBtn.classList.remove('active');
-      
+
       updateUI();
     }
 
@@ -1500,7 +1596,7 @@
       });
 
       const totalDelay = flippedPages.length * staggerDelay + 400;
-      
+
       setTimeout(() => {
         isOpen = false;
         currentPage = -1;
@@ -1517,7 +1613,7 @@
     // Toggle TOC
     function toggleToc() {
       if (!isOpen) return;
-      
+
       isTocVisible = !isTocVisible;
       tocPanel.classList.toggle('active', isTocVisible);
       tocBtn.classList.toggle('active', isTocVisible);
@@ -1570,7 +1666,7 @@
       setTimeout(() => {
         currentPage = pageIndex;
         updateUI();
-        
+
         // Hide TOC after navigation
         isTocVisible = false;
         tocPanel.classList.remove('active');
@@ -1595,7 +1691,7 @@
     // Video Modal Functions
     function openVideoModal() {
       bookWrapper.classList.add('rotated');
-      
+
       setTimeout(() => {
         videoModal.classList.add('active');
         modalVideo.currentTime = 0;
@@ -1606,7 +1702,7 @@
     function closeVideoModal() {
       modalVideo.pause();
       videoModal.classList.remove('active');
-      
+
       setTimeout(() => {
         bookWrapper.classList.remove('rotated');
       }, 100);
@@ -1622,28 +1718,28 @@
 
     function handleDragMove(e) {
       if (!isDragging || isOpen) return;
-      
+
       const x = e.clientX || e.touches[0].clientX;
       const y = e.clientY || e.touches[0].clientY;
-      
+
       const deltaX = (x - startX) * 0.3;
       const deltaY = (y - startY) * 0.3;
-      
+
       rotateY = Math.max(-30, Math.min(30, deltaX));
       rotateX = Math.max(-15, Math.min(15, -deltaY));
-      
+
       book.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
     }
 
     function handleDragEnd() {
       if (!isDragging) return;
       isDragging = false;
-      
+
       book.style.transition = 'transform 0.5s ease';
       book.style.transform = 'rotateX(0deg) rotateY(0deg)';
       rotateX = 0;
       rotateY = 0;
-      
+
       setTimeout(() => {
         book.style.transition = '';
       }, 500);
@@ -1652,26 +1748,26 @@
     // Hover effect
     function handleHover(e) {
       if (isOpen || isDragging) return;
-      
+
       const rect = scene.getBoundingClientRect();
       const centerX = rect.left + rect.width / 2;
       const centerY = rect.top + rect.height / 2;
-      
+
       const x = (e.clientX - centerX) / (rect.width / 2);
       const y = (e.clientY - centerY) / (rect.height / 2);
-      
+
       rotateY = x * 10;
       rotateX = -y * 5;
-      
+
       book.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
     }
 
     function resetHover() {
       if (isOpen || isDragging) return;
-      
+
       book.style.transition = 'transform 0.5s ease';
       book.style.transform = 'rotateX(0deg) rotateY(0deg)';
-      
+
       setTimeout(() => {
         book.style.transition = '';
       }, 500);
@@ -1726,7 +1822,7 @@
     // Keyboard navigation
     document.addEventListener('keydown', (e) => {
       if (!isOpen) return;
-      
+
       if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
         flipNext();
       } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
@@ -1747,5 +1843,6 @@
     // Initialize
     generateStars();
   </script>
- </body>
+</body>
+
 </html>

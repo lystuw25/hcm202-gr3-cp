@@ -150,7 +150,13 @@
     /* Book Wrapper for rotation */
     .book-wrapper {
       transform-style: preserve-3d;
-      transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease;
+      opacity: 1;
+    }
+
+    .book-wrapper.hidden {
+      opacity: 0;
+      pointer-events: none;
     }
 
     .book-wrapper.rotated {
@@ -165,6 +171,194 @@
       transform-style: preserve-3d;
       transition: transform 0.6s ease;
       top: -30px;
+    }
+
+    /* ============================================
+      THANK YOU SCREEN
+      Author: BaoTQ
+      Date: 2026-01-29
+      Description: End screen with team photo and members
+      ============================================ */
+    .thank-you-screen {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+      z-index: 300;
+    }
+
+    .thank-you-screen.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .thank-you-content {
+      text-align: center;
+      color: white;
+      max-width: 700px;
+      padding: 60px 45px;
+      background: rgba(20, 15, 10, 0.7);
+      backdrop-filter: blur(20px);
+      border-radius: 30px;
+      border: 2px solid rgba(212, 175, 55, 0.3);
+      box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.5),
+        inset 0 0 40px rgba(212, 175, 55, 0.05);
+      animation: fadeInUp 1s ease;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .thank-you-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 42px;
+      color: #d4af37;
+      margin-bottom: 22px;
+      text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+      letter-spacing: 2px;
+    }
+
+    .thank-you-subtitle {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 15px;
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 30px;
+      line-height: 1.8;
+      letter-spacing: 1px;
+    }
+
+    .team-photo-container {
+      position: relative;
+      margin: 30px auto;
+      width: 550px;
+      height: 350px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow:
+        0 15px 50px rgba(0, 0, 0, 0.6),
+        inset 0 0 20px rgba(255, 255, 255, 0.1);
+      border: 3px solid rgba(212, 175, 55, 0.5);
+    }
+
+    .team-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scale(1.1);
+      object-position: 0% center;
+      transition: transform 0.5s ease;
+    }
+
+    .team-photo-container:hover .team-photo {
+      transform: scale(1.05);
+    }
+
+    .team-photo-placeholder {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #2c1810 0%, #4a2c17 50%, #2c1810 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 18px;
+      color: rgba(255, 255, 255, 0.5);
+      text-align: center;
+      padding: 40px;
+    }
+
+    .team-members {
+      margin-top: 26px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(212, 175, 55, 0.3);
+    }
+
+    .team-members h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 17px;
+      color: #d4af37;
+      margin-bottom: 15px;
+    }
+
+    .members-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .member-tag {
+      padding: 7px 15px;
+      background: rgba(212, 175, 55, 0.15);
+      border: 1px solid rgba(212, 175, 55, 0.4);
+      border-radius: 25px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.9);
+      transition: all 0.3s ease;
+    }
+
+    .member-tag:hover {
+      background: rgba(212, 175, 55, 0.3);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+    }
+
+    /* Back Button */
+    .back-btn {
+      position: fixed;
+      top: 40px;
+      left: 40px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 15px 30px;
+      background: rgba(20, 15, 10, 0.85);
+      backdrop-filter: blur(10px);
+      border: 2px solid rgba(212, 175, 55, 0.5);
+      border-radius: 50px;
+      color: #d4af37;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      z-index: 400;
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .back-btn.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .back-btn:hover {
+      background: #d4af37;
+      color: #1a0f08;
+      transform: translateX(-5px);
+      box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+    }
+
+    .back-btn svg {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
     }
 
     /* Cover - Front */
@@ -930,11 +1124,33 @@
       background: rgba(212, 175, 55, 0.6);
     }
 
-    /* RESPONSIVE */
+    /* ============================================
+      RESPONSIVE DESIGN
+      Mobile-first approach with breakpoints at:
+      - 1500px: Desktop large
+      - 1200px: Laptop
+      - 900px: Tablet
+      - 768px: Mobile large
+      - 480px: Mobile small
+      ============================================ */
     @media (max-width: 1500px) {
       .book {
         width: 850px;
         height: 595px;
+      }
+
+      .thank-you-content {
+        max-width: 650px;
+        padding: 55px 42px;
+      }
+
+      .thank-you-title {
+        font-size: 40px;
+      }
+
+      .team-photo-container {
+        width: 520px;
+        height: 330px;
       }
     }
 
@@ -951,6 +1167,33 @@
       .page-content {
         font-size: 15px;
       }
+
+      .thank-you-content {
+        max-width: 580px;
+        padding: 45px 38px;
+      }
+
+      .thank-you-title {
+        font-size: 36px;
+      }
+
+      .thank-you-subtitle {
+        font-size: 14px;
+      }
+
+      .team-photo-container {
+        width: 460px;
+        height: 290px;
+      }
+
+      .team-members h4 {
+        font-size: 16px;
+      }
+
+      .member-tag {
+        font-size: 11px;
+        padding: 6px 13px;
+      }
     }
 
     @media (max-width: 900px) {
@@ -961,6 +1204,30 @@
 
       .cover-title {
         font-size: 40px;
+      }
+
+      .thank-you-content {
+        max-width: 500px;
+        padding: 40px 32px;
+      }
+
+      .thank-you-title {
+        font-size: 32px;
+      }
+
+      .thank-you-subtitle {
+        font-size: 13px;
+        margin-bottom: 25px;
+      }
+
+      .team-photo-container {
+        width: 400px;
+        height: 255px;
+      }
+
+      .member-tag {
+        font-size: 10px;
+        padding: 5px 11px;
       }
     }
 
@@ -973,6 +1240,105 @@
       .cover-title {
         font-size: 32px;
       }
+
+      .thank-you-content {
+        max-width: 88vw;
+        padding: 35px 28px;
+      }
+
+      .thank-you-title {
+        font-size: 28px;
+        margin-bottom: 18px;
+      }
+
+      .thank-you-subtitle {
+        font-size: 12px;
+        margin-bottom: 22px;
+        line-height: 1.7;
+      }
+
+      .team-photo-container {
+        width: 100%;
+        max-width: 380px;
+        height: 240px;
+        margin: 22px auto;
+      }
+
+      .team-members {
+        margin-top: 20px;
+        padding-top: 18px;
+      }
+
+      .team-members h4 {
+        font-size: 15px;
+        margin-bottom: 12px;
+      }
+
+      .members-list {
+        gap: 8px;
+      }
+
+      .member-tag {
+        font-size: 10px;
+        padding: 5px 10px;
+      }
+
+      .back-btn {
+        top: 20px;
+        left: 20px;
+        padding: 12px 20px;
+        font-size: 13px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .thank-you-content {
+        max-width: 92vw;
+        padding: 28px 22px;
+      }
+
+      .thank-you-title {
+        font-size: 24px;
+        margin-bottom: 15px;
+      }
+
+      .thank-you-subtitle {
+        font-size: 11px;
+        margin-bottom: 18px;
+      }
+
+      .team-photo-container {
+        width: 100%;
+        max-width: 340px;
+        height: 215px;
+        margin: 18px auto;
+      }
+
+      .team-members h4 {
+        font-size: 14px;
+        margin-bottom: 10px;
+      }
+
+      .members-list {
+        gap: 6px;
+      }
+
+      .member-tag {
+        font-size: 9px;
+        padding: 4px 8px;
+      }
+
+      .back-btn {
+        top: 15px;
+        left: 15px;
+        padding: 10px 16px;
+        font-size: 12px;
+      }
+
+      .back-btn svg {
+        width: 16px;
+        height: 16px;
+      }
     }
   </style>
 </head>
@@ -984,6 +1350,48 @@
     <div class="nebula nebula-1"></div>
     <div class="nebula nebula-2"></div>
     <div class="nebula nebula-3"></div>
+  </div>
+
+  <!-- Back Button -->
+  <button class="back-btn" id="backBtn">
+    <svg viewBox="0 0 24 24">
+      <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
+    </svg>
+    Quay lại sách
+  </button>
+
+  <!-- ============================================
+    THANK YOU SCREEN
+    Author: BaoTQ
+    Date: 2026-01-29
+    Description: End screen with team photo and members
+   ============================================  -->
+  <div class="thank-you-screen" id="thankYouScreen">
+    <div class="thank-you-content">
+      <h1 class="thank-you-title">Cảm ơn bạn!</h1>
+      <p class="thank-you-subtitle">
+        Cảm ơn bạn đã dành thời gian xem qua sản phẩm sáng tạo của chúng tôi.<br>
+        Hy vọng nội dung đã mang đến cho bạn những thông tin hữu ích và trải nghiệm thú vị.
+      </p>
+
+      <div class="team-photo-container">
+        <!-- Thay thế tên file bằng tên ảnh của bạn trong thư mục Image -->
+        <img src="Image/team-photo.jpg" alt="Team Photo" class="team-photo"
+          onerror="this.parentElement.innerHTML='<div class=team-photo-placeholder>📸<br>Thêm ảnh nhóm vào thư mục Image<br>(Ví dụ: Image/team-photo.jpg)</div>'">
+      </div>
+
+      <div class="team-members">
+        <h4>Thành viên nhóm</h4>
+        <div class="members-list">
+          <span class="member-tag">👨‍💻 Trần Quốc Bảo </span>
+          <span class="member-tag">🎨 Nguyễn Xuân Nguyên Giáp </span>
+          <span class="member-tag">📝 Đặng Đức Cương </span>
+          <span class="member-tag">🔧 Vũ Quang Diệu </span>
+          <span class="member-tag">📊 Lê Thành Linh </span>
+          <span class="member-tag">📊 Phạm Tiến Phát </span>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- Scene Container -->
@@ -1119,6 +1527,7 @@
 
                 <h4>Giảng viên hướng dẫn</h4>
                 <p>[Thầy Mai K Đa]</p>
+                <p>damk@fpt.edu.vn</p>
               </div>
             </div>
           </div>
@@ -1308,6 +1717,16 @@
                   <li><strong>Q2:</strong> Thu thập phản hồi & cải tiến</li>
                   <li><strong>Q3:</strong> Tích hợp tính năng mới</li>
                   <li><strong>Q4:</strong> Ra mắt chính thức</li>
+                </ul>
+                <h4>Liên hệ</h4>
+                <ul>
+                  <li><strong>SDT:</strong> 08xxxxxxxx</li>
+                  <li><strong>Email:</strong> baotqwork20@gmail.com</li>
+                  <li>
+                    <strong>Follow:</strong><br>
+                    github.com/lystuw25<br>
+                    github.com/NguyenGiap2804
+                  </li>
                 </ul>
               </div>
             </div>
@@ -1503,6 +1922,14 @@
   </div>
 
   <script>
+    /**
+     * Project: 3D Interactive Book
+     * Description: Creative product presentation with 3D book flipping animation
+     * Author: BaoTQ
+     * Created: January 2026
+     * Last Modified: 2026-01-29
+     */
+
     // State Machine
     let isOpen = false;
     let currentPage = -1;
@@ -1511,6 +1938,7 @@
     let isDragging = false;
     let startX, startY;
     let isTocVisible = false;
+    let isThankYouMode = false;
 
     // DOM Elements
     const book = document.getElementById('book');
@@ -1533,6 +1961,8 @@
     const pageVideo = document.getElementById('pageVideo');
     const modalVideo = document.getElementById('modalVideo');
     const scene = document.getElementById('scene');
+    const thankYouScreen = document.getElementById('thankYouScreen');
+    const backBtn = document.getElementById('backBtn');
 
     // Generate Stars - 300 STARS + SHOOTING STARS
     function generateStars() {
@@ -1610,6 +2040,40 @@
       }, totalDelay);
     }
 
+    // Show Thank You Screen
+    function showThankYou() {
+      isThankYouMode = true;
+
+      // Hide book and controls with fade
+      bookWrapper.classList.add('hidden');
+      controls.classList.remove('visible');
+
+      // Show thank you screen after book fades
+      setTimeout(() => {
+        thankYouScreen.classList.add('active');
+        backBtn.classList.add('visible');
+      }, 600);
+    }
+
+    // Back to Book
+    function backToBook() {
+      isThankYouMode = false;
+
+      // Hide thank you screen
+      thankYouScreen.classList.remove('active');
+      backBtn.classList.remove('visible');
+
+      // Show book again
+      setTimeout(() => {
+        bookWrapper.classList.remove('hidden');
+        // Reset to first page
+        pages.forEach(page => page.classList.remove('flipped'));
+        currentPage = 0;
+        controls.classList.add('visible');
+        updateUI();
+      }, 600);
+    }
+
     // Toggle TOC
     function toggleToc() {
       if (!isOpen) return;
@@ -1628,7 +2092,8 @@
         currentPage++;
         updateUI();
       } else if (currentPage === 7) {
-        closeBook();
+        // At last page, show Thank You screen
+        showThankYou();
       }
     }
 
@@ -1710,14 +2175,14 @@
 
     // Mouse/Touch drag for book rotation
     function handleDragStart(e) {
-      if (isOpen) return;
+      if (isOpen || isThankYouMode) return;
       isDragging = true;
       startX = e.clientX || e.touches[0].clientX;
       startY = e.clientY || e.touches[0].clientY;
     }
 
     function handleDragMove(e) {
-      if (!isDragging || isOpen) return;
+      if (!isDragging || isOpen || isThankYouMode) return;
 
       const x = e.clientX || e.touches[0].clientX;
       const y = e.clientY || e.touches[0].clientY;
@@ -1747,7 +2212,7 @@
 
     // Hover effect
     function handleHover(e) {
-      if (isOpen || isDragging) return;
+      if (isOpen || isDragging || isThankYouMode) return;
 
       const rect = scene.getBoundingClientRect();
       const centerX = rect.left + rect.width / 2;
@@ -1763,7 +2228,7 @@
     }
 
     function resetHover() {
-      if (isOpen || isDragging) return;
+      if (isOpen || isDragging || isThankYouMode) return;
 
       book.style.transition = 'transform 0.5s ease';
       book.style.transform = 'rotateX(0deg) rotateY(0deg)';
@@ -1775,7 +2240,7 @@
 
     // Event Listeners - CLICK ANYWHERE ON COVER
     coverFront.addEventListener('click', (e) => {
-      if (!isOpen) {
+      if (!isOpen && !isThankYouMode) {
         openBook();
         e.stopPropagation();
       }
@@ -1785,6 +2250,7 @@
     nextBtn.addEventListener('click', flipNext);
     closeBtn.addEventListener('click', closeBook);
     tocBtn.addEventListener('click', toggleToc);
+    backBtn.addEventListener('click', backToBook);
 
     tocItems.forEach((item) => {
       item.addEventListener('click', () => {
@@ -1821,6 +2287,13 @@
 
     // Keyboard navigation
     document.addEventListener('keydown', (e) => {
+      if (isThankYouMode) {
+        if (e.key === 'Escape' || e.key === 'Backspace') {
+          backToBook();
+        }
+        return;
+      }
+
       if (!isOpen) return;
 
       if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {

@@ -1,53 +1,70 @@
 # 📖 Unity in Mind – Interactive Web Book & Video Project
 
-## 📌 Overview  
-This project is a **simple interactive website** built with **HTML** that presents content in a **book-style flip layout** combined with an **embedded video**.  
-
-The website tells a story and explains the ideology of **national unity in Hồ Chí Minh’s thought**, guiding viewers through a visual, page-turning experience similar to reading a digital book, followed by a video presentation.  
-
-The main goal is to deliver educational content in a **creative, engaging, and easy-to-follow format**.
+## Overview  
+A simple interactive web project that presents educational content in a 3D book-style page flip interface combined with a video presentation.
+Built with pure HTML, CSS, and JavaScript, no backend required.
 
 ---
 
-## 🎯 Project Goals  
-- Present theoretical content in a **visual and interactive way**  
-- Combine **text + video storytelling** for better engagement  
-- Raise awareness about **unity, solidarity, and collective responsibility**  
-- Create a **clean, simple, and accessible** web-based learning experience  
+## Features  
+📄 3D page-flipping book interface
+
+🎥 Video presentation inside the book
+
+🖥️ Runs directly in the browser
+
+📱 Responsive layout (desktop & mobile)
 
 ---
 
-## 🧩 Features  
-- 📄 Book-style page flipping interface  
-- 🎥 Embedded video with narration script  
-- 🖥️ Runs directly in the browser (no backend required)  
-- 📱 Responsive layout for basic desktop and mobile viewing  
+## Technologies
+- HTML5
+
+- CSS3 (3D Transforms, Animations, Flexbox)
+
+- JavaScript (ES6)  
 
 ---
 
-## 🛠️ Technologies Used  
-HTML, CSS, JavaScript  
+## How to Run  
+1. Clone or download this repository
+
+2. Open index.html in a modern browser
+
+   - Chrome / Edge / Brave recommended
+
+4. Flip pages and play the video inside the book 
 
 ---
 
-## ▶️ How to Run  
-1. Clone this repository or download the files  
-2. Open `index.html` in any modern web browser  
-3. Flip through the pages and watch the embedded video  
+## Project Structure
 
----
+project/
 
-## 📂 Project Structure
-
-/
 ├── index.html
-├── video.mp4
+
+├── css/
+
+│   └── style.css
+
+├── js/
+
+│   └── main.js
+
+├── assets/
+
+│   ├── images/
+
+│   └── videos/
+
+│       └── HCM202TK.mp4
+
 └── README.md
 
 
 ---
 
-## 📚 Content Description  
+## Content Description  
 The website presents a narrated script and visual content that highlights:  
 - The importance of **national unity**  
 - Historical context of **collective struggle and solidarity**  
@@ -56,14 +73,21 @@ The website presents a narrated script and visual content that highlights:
 
 ---
 
-## 👥 Team – 6Star Champions  
-- **BaoTQ**  
-- **GiapNXN**
-- ..
+## Team – 6Star Champions  
+- Trần Quốc Bảo – Designer / Developer
 
+- Nguyễn Xuân Nguyên Giáp – Designer / Developer
+
+- Đặng Đức Cương 
+
+- Vũ Quang Diệu 
+
+- Lê Thành Linh
+
+- Phạm Tiến Phát
 ---
 
-## 📄 License  
+## License  
 This project is licensed under the **MIT License**.
 
 

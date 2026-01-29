@@ -1,1346 +1,18 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="vi">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Sản phẩm sáng tạo - Cuốn sách 3D tương tác">
+  <meta name="author" content="BaoTQ">
   <title>Sản phẩm sáng tạo - Cuốn sách 3D</title>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&family=Montserrat:wght@300;400;500;600&display=swap"
-    rel="stylesheet">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html,
-    body {
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      font-family: 'Crimson Text', Georgia, serif;
-    }
-
-    /* Universe Background - ENHANCED */
-    .universe {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(ellipse at center, #1a1a2e 0%, #0f0f1a 50%, #050510 100%);
-      overflow: hidden;
-    }
-
-    .stars {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-    }
-
-    .star {
-      position: absolute;
-      background: white;
-      border-radius: 50%;
-      animation: twinkle var(--duration) ease-in-out infinite;
-      box-shadow: 0 0 4px rgba(255, 255, 255, 0.8);
-    }
-
-    @keyframes twinkle {
-
-      0%,
-      100% {
-        opacity: var(--min-opacity);
-        transform: scale(1);
-      }
-
-      50% {
-        opacity: 1;
-        transform: scale(1.3);
-      }
-    }
-
-    /* SHOOTING STARS */
-    .shooting-star {
-      position: absolute;
-      width: 2px;
-      height: 2px;
-      background: white;
-      border-radius: 50%;
-      box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.9);
-      animation: shoot 3s linear infinite;
-    }
-
-    @keyframes shoot {
-      0% {
-        transform: translateX(0) translateY(0);
-        opacity: 1;
-      }
-
-      70% {
-        opacity: 1;
-      }
-
-      100% {
-        transform: translateX(-300px) translateY(200px);
-        opacity: 0;
-      }
-    }
-
-    .nebula {
-      position: absolute;
-      width: 600px;
-      height: 600px;
-      border-radius: 50%;
-      filter: blur(80px);
-      opacity: 0.15;
-      animation: float 20s ease-in-out infinite;
-    }
-
-    @keyframes float {
-
-      0%,
-      100% {
-        transform: translate(0, 0) scale(1);
-      }
-
-      50% {
-        transform: translate(30px, -30px) scale(1.1);
-      }
-    }
-
-    .nebula-1 {
-      top: -200px;
-      right: -100px;
-      background: radial-gradient(circle, #6366f1, #8b5cf6, transparent);
-    }
-
-    .nebula-2 {
-      bottom: -300px;
-      left: -200px;
-      background: radial-gradient(circle, #ec4899, #f43f5e, transparent);
-      animation-delay: -5s;
-    }
-
-    /* THIRD NEBULA */
-    .nebula-3 {
-      top: 50%;
-      left: 50%;
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, #3b82f6, #2563eb, transparent);
-      animation-delay: -10s;
-    }
-
-    /* Scene Container */
-    .scene-container {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      perspective: 2200px;
-    }
-
-    /* Book Wrapper for rotation */
-    .book-wrapper {
-      transform-style: preserve-3d;
-      transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease;
-      opacity: 1;
-    }
-
-    .book-wrapper.hidden {
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .book-wrapper.rotated {
-      transform: rotateZ(90deg) scale(0.75);
-    }
-
-    /* 3D Book - MUCH LARGER */
-    .book {
-      position: relative;
-      width: 1000px;
-      height: 700px;
-      transform-style: preserve-3d;
-      transition: transform 0.6s ease;
-      top: -30px;
-    }
-
-    /* ============================================
-      THANK YOU SCREEN
-      Author: BaoTQ
-      Date: 2026-01-29
-      Description: End screen with team photo and members
-      ============================================ */
-    .thank-you-screen {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.8s ease, visibility 0.8s ease;
-      z-index: 300;
-    }
-
-    .thank-you-screen.active {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .thank-you-content {
-      text-align: center;
-      color: white;
-      max-width: 700px;
-      padding: 60px 45px;
-      background: rgba(20, 15, 10, 0.7);
-      backdrop-filter: blur(20px);
-      border-radius: 30px;
-      border: 2px solid rgba(212, 175, 55, 0.3);
-      box-shadow:
-        0 20px 60px rgba(0, 0, 0, 0.5),
-        inset 0 0 40px rgba(212, 175, 55, 0.05);
-      animation: fadeInUp 1s ease;
-    }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(40px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .thank-you-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 42px;
-      color: #d4af37;
-      margin-bottom: 22px;
-      text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
-      letter-spacing: 2px;
-    }
-
-    .thank-you-subtitle {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 15px;
-      color: rgba(255, 255, 255, 0.9);
-      margin-bottom: 30px;
-      line-height: 1.8;
-      letter-spacing: 1px;
-    }
-
-    .team-photo-container {
-      position: relative;
-      margin: 30px auto;
-      width: 550px;
-      height: 350px;
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow:
-        0 15px 50px rgba(0, 0, 0, 0.6),
-        inset 0 0 20px rgba(255, 255, 255, 0.1);
-      border: 3px solid rgba(212, 175, 55, 0.5);
-    }
-
-    .team-photo {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transform: scale(1.1);
-      object-position: 0% center;
-      transition: transform 0.5s ease;
-    }
-
-    .team-photo-container:hover .team-photo {
-      transform: scale(1.05);
-    }
-
-    .team-photo-placeholder {
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(135deg, #2c1810 0%, #4a2c17 50%, #2c1810 100%);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 18px;
-      color: rgba(255, 255, 255, 0.5);
-      text-align: center;
-      padding: 40px;
-    }
-
-    .team-members {
-      margin-top: 26px;
-      padding-top: 22px;
-      border-top: 1px solid rgba(212, 175, 55, 0.3);
-    }
-
-    .team-members h4 {
-      font-family: 'Playfair Display', serif;
-      font-size: 17px;
-      color: #d4af37;
-      margin-bottom: 15px;
-    }
-
-    .members-list {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 12px;
-    }
-
-    .member-tag {
-      padding: 7px 15px;
-      background: rgba(212, 175, 55, 0.15);
-      border: 1px solid rgba(212, 175, 55, 0.4);
-      border-radius: 25px;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 12px;
-      color: rgba(255, 255, 255, 0.9);
-      transition: all 0.3s ease;
-    }
-
-    .member-tag:hover {
-      background: rgba(212, 175, 55, 0.3);
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
-    }
-
-    /* Back Button */
-    .back-btn {
-      position: fixed;
-      top: 40px;
-      left: 40px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 15px 30px;
-      background: rgba(20, 15, 10, 0.85);
-      backdrop-filter: blur(10px);
-      border: 2px solid rgba(212, 175, 55, 0.5);
-      border-radius: 50px;
-      color: #d4af37;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 15px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      z-index: 400;
-      opacity: 0;
-      visibility: hidden;
-    }
-
-    .back-btn.visible {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .back-btn:hover {
-      background: #d4af37;
-      color: #1a0f08;
-      transform: translateX(-5px);
-      box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
-    }
-
-    .back-btn svg {
-      width: 20px;
-      height: 20px;
-      fill: currentColor;
-    }
-
-    /* Cover - Front */
-    .cover-front {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(135deg, #2c1810 0%, #4a2c17 30%, #6b3a1f 60%, #4a2c17 100%);
-      border-radius: 0 8px 8px 0;
-      transform-origin: left center;
-      transform-style: preserve-3d;
-      transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
-      cursor: pointer;
-      z-index: 100;
-      box-shadow:
-        5px 5px 20px rgba(0, 0, 0, 0.5),
-        inset -3px 0 10px rgba(0, 0, 0, 0.3),
-        inset 3px 0 10px rgba(255, 255, 255, 0.05);
-    }
-
-    .cover-front::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background:
-        repeating-linear-gradient(90deg, transparent 0px, transparent 2px, rgba(0, 0, 0, 0.03) 2px, rgba(0, 0, 0, 0.03) 4px),
-        url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
-      border-radius: 0 8px 8px 0;
-      pointer-events: none;
-    }
-
-    .cover-front::after {
-      content: '';
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      right: 10px;
-      bottom: 10px;
-      border: 2px solid rgba(212, 175, 55, 0.4);
-      border-radius: 4px;
-      pointer-events: none;
-      transition: all 0.3s ease;
-    }
-
-    /* HOVER EFFECT */
-    .cover-front:hover::after {
-      border-color: rgba(212, 175, 55, 0.8);
-      box-shadow:
-        0 0 30px rgba(212, 175, 55, 0.4),
-        inset 0 0 30px rgba(212, 175, 55, 0.1);
-    }
-
-    .cover-content {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      text-align: center;
-      color: #d4af37;
-      z-index: 2;
-      backface-visibility: hidden;
-    }
-
-    .cover-ornament {
-      font-size: 42px;
-      margin-bottom: 20px;
-      opacity: 0.8;
-    }
-
-    .cover-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 56px;
-      font-weight: 700;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-      margin-bottom: 15px;
-      letter-spacing: 3px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    /* CLICKABLE TITLE HOVER */
-    .cover-title:hover {
-      color: #f0d98d;
-      text-shadow:
-        2px 2px 4px rgba(0, 0, 0, 0.7),
-        0 0 20px rgba(212, 175, 55, 0.6);
-      transform: scale(1.05);
-    }
-
-    .cover-subtitle {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 16px;
-      font-weight: 300;
-      letter-spacing: 5px;
-      text-transform: uppercase;
-      opacity: 0.9;
-    }
-
-    .cover-year {
-      position: absolute;
-      bottom: 40px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-family: 'Montserrat', sans-serif;
-      font-size: 18px;
-      color: rgba(212, 175, 55, 0.6);
-    }
-
-    /* Cover Back (inside of front cover) */
-    .cover-back {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(180deg, #f5e6d3 0%, #e8d4bc 100%);
-      transform: rotateY(180deg);
-      backface-visibility: hidden;
-      border-radius: 8px 0 0 8px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 40px;
-      transition: opacity 0.3s ease, visibility 0.3s ease;
-    }
-
-    /* Fix: Hide "Chào mừng" when book is open */
-    /* Updated by: BaoTQ - 27/01/2026 */
-    .book.open .cover-back {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
-
-    .cover-back-content {
-      text-align: center;
-      color: #5a4a3a;
-    }
-
-    .cover-back-content h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 28px;
-      margin-bottom: 25px;
-      color: #3d2914;
-    }
-
-    .cover-back-content p {
-      font-size: 17px;
-      line-height: 1.8;
-      opacity: 0.8;
-    }
-
-    /* Spine */
-    .spine {
-      position: absolute;
-      width: 45px;
-      height: 100%;
-      left: -45px;
-      background: linear-gradient(90deg, #1a0f08 0%, #3d2914 50%, #2c1810 100%);
-      transform: rotateY(-90deg);
-      transform-origin: right center;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
-    }
-
-    .spine-title {
-      writing-mode: vertical-rl;
-      text-orientation: mixed;
-      transform: rotate(180deg);
-      color: #d4af37;
-      font-family: 'Playfair Display', serif;
-      font-size: 16px;
-      font-weight: 600;
-      letter-spacing: 4px;
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-    }
-
-    /* Back Board */
-    .back-board {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(135deg, #2c1810 0%, #3d2914 50%, #2c1810 100%);
-      transform: translateZ(-45px);
-      border-radius: 0 8px 8px 0;
-      box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.5);
-      visibility: hidden;
-      opacity: 0;
-      transition: visibility 0s 0.6s, opacity 0.3s;
-    }
-
-    /* Pages Container */
-    .pages-container {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      transform-style: preserve-3d;
-      visibility: hidden;
-      opacity: 0;
-      pointer-events: none;
-      transition: visibility 0s 0.6s, opacity 0.3s;
-    }
-
-    /* TOC (Left side when open) */
-    .toc-panel {
-      position: absolute;
-      width: 50%;
-      height: 100%;
-      left: 0;
-      background: linear-gradient(180deg, #faf6f0 0%, #f0e6d8 100%);
-      padding: 35px 30px;
-      overflow-y: auto;
-      border-right: 1px solid rgba(0, 0, 0, 0.1);
-      transform: translateZ(1px);
-      /* HIDDEN BY DEFAULT */
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.3s ease, visibility 0.3s ease;
-    }
-
-    /* SHOW TOC WHEN ACTIVE */
-    .toc-panel.active {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .toc-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 28px;
-      color: #3d2914;
-      margin-bottom: 25px;
-      padding-bottom: 15px;
-      border-bottom: 2px solid #d4af37;
-      text-align: center;
-    }
-
-    .toc-list {
-      list-style: none;
-    }
-
-    .toc-item {
-      display: flex;
-      align-items: center;
-      padding: 14px 12px;
-      margin-bottom: 8px;
-      cursor: pointer;
-      border-radius: 4px;
-      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-      font-size: 16px;
-      color: #5a4a3a;
-      border-left: 3px solid transparent;
-    }
-
-    .toc-item:hover {
-      background: rgba(212, 175, 55, 0.15);
-      transform: translateX(5px);
-      border-left-color: #d4af37;
-    }
-
-    .toc-item.active {
-      background: rgba(212, 175, 55, 0.25);
-      color: #3d2914;
-      font-weight: 600;
-      border-left-color: #d4af37;
-    }
-
-    .toc-number {
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      width: 28px;
-      height: 28px;
-      background: #d4af37;
-      color: white;
-      border-radius: 50%;
-      font-size: 13px;
-      font-weight: 600;
-      margin-right: 14px;
-      flex-shrink: 0;
-    }
-
-    .toc-text {
-      flex: 1;
-    }
-
-    /* Pages */
-    .page {
-      position: absolute;
-      width: 50%;
-      height: 100%;
-      right: 0;
-      transform-style: preserve-3d;
-      transform-origin: left center;
-      transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-      cursor: default;
-    }
-
-    .page.flipped {
-      transform: rotateY(-180deg);
-    }
-
-    .page-front,
-    .page-back {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      backface-visibility: hidden;
-      background: linear-gradient(180deg, #fdfbf7 0%, #f8f4ec 100%);
-      padding: 35px 30px;
-      overflow-y: auto;
-      border-left: 1px solid rgba(0, 0, 0, 0.05);
-    }
-
-    .page-front {
-      box-shadow:
-        -2px 0 10px rgba(0, 0, 0, 0.05),
-        inset 2px 0 5px rgba(0, 0, 0, 0.02);
-    }
-
-    .page-back {
-      transform: rotateY(180deg);
-      box-shadow:
-        2px 0 10px rgba(0, 0, 0, 0.05),
-        inset -2px 0 5px rgba(0, 0, 0, 0.02);
-    }
-
-    .page-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 25px;
-      padding-bottom: 15px;
-      border-bottom: 1px solid rgba(212, 175, 55, 0.3);
-    }
-
-    .page-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 26px;
-      color: #3d2914;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .page-number {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 13px;
-      color: #999;
-    }
-
-    .page-content {
-      font-size: 17px;
-      line-height: 1.9;
-      color: #4a4a4a;
-    }
-
-    .page-content h4 {
-      font-family: 'Playfair Display', serif;
-      color: #3d2914;
-      margin: 20px 0 12px;
-      font-size: 20px;
-    }
-
-    .page-content p {
-      margin-bottom: 15px;
-      text-align: justify;
-    }
-
-    .page-content ul {
-      margin: 12px 0;
-      padding-left: 25px;
-    }
-
-    .page-content li {
-      margin-bottom: 8px;
-    }
-
-    /* Video Page */
-    .video-container {
-      position: relative;
-      width: 100%;
-      padding-top: 56.25%;
-      background: #000;
-      border-radius: 8px;
-      overflow: hidden;
-      margin: 20px 0;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    }
-
-    .video-container video {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .video-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.4);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-
-    .video-overlay:hover {
-      background: rgba(0, 0, 0, 0.2);
-    }
-
-    .play-button {
-      width: 70px;
-      height: 70px;
-      background: rgba(212, 175, 55, 0.9);
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      transition: transform 0.3s, background 0.3s;
-    }
-
-    .play-button:hover {
-      transform: scale(1.1);
-      background: #d4af37;
-    }
-
-    .play-button svg {
-      width: 28px;
-      height: 28px;
-      fill: white;
-      margin-left: 4px;
-    }
-
-    /* References Page */
-    .ref-list {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .ref-item {
-      display: flex;
-      align-items: flex-start;
-      padding: 15px;
-      background: rgba(212, 175, 55, 0.08);
-      border-radius: 8px;
-      border-left: 3px solid #d4af37;
-      transition: all 0.3s ease;
-    }
-
-    .ref-item:hover {
-      background: rgba(212, 175, 55, 0.15);
-      transform: translateX(5px);
-    }
-
-    .ref-icon {
-      font-size: 26px;
-      margin-right: 14px;
-      flex-shrink: 0;
-    }
-
-    .ref-content {
-      flex: 1;
-    }
-
-    .ref-title {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 600;
-      font-size: 15px;
-      color: #3d2914;
-      margin-bottom: 6px;
-    }
-
-    .ref-desc {
-      font-size: 14px;
-      color: #666;
-      margin-bottom: 8px;
-    }
-
-    .ref-link {
-      display: inline-flex;
-      align-items: center;
-      font-size: 13px;
-      color: #d4af37;
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.3s;
-    }
-
-    .ref-link:hover {
-      color: #b8972e;
-      text-decoration: underline;
-    }
-
-    .ref-link svg {
-      width: 13px;
-      height: 13px;
-      margin-left: 4px;
-    }
-
-    /* Controls - ENHANCED */
-    .controls {
-      position: absolute;
-      bottom: 30px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 10px 20px;
-      background: rgba(20, 15, 10, 0.85);
-      backdrop-filter: blur(10px);
-      border-radius: 50px;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.4s ease;
-      z-index: 200;
-    }
-
-    .controls.visible {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .ctrl-btn {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 48px;
-      height: 48px;
-      background: transparent;
-      border: 2px solid rgba(212, 175, 55, 0.5);
-      border-radius: 50%;
-      color: #d4af37;
-      cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-      font-size: 16px;
-    }
-
-    .ctrl-btn:hover:not(:disabled) {
-      background: #d4af37;
-      color: #1a0f08;
-      border-color: #d4af37;
-      transform: scale(1.1);
-    }
-
-    .ctrl-btn:disabled {
-      opacity: 0.3;
-      cursor: not-allowed;
-    }
-
-    .ctrl-btn svg {
-      width: 18px;
-      height: 18px;
-      fill: currentColor;
-    }
-
-    .page-indicator {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 15px;
-      color: rgba(255, 255, 255, 0.8);
-      min-width: 90px;
-      text-align: center;
-    }
-
-    .close-btn,
-    .toc-btn {
-      padding: 10px 18px;
-      background: transparent;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      border-radius: 20px;
-      color: rgba(255, 255, 255, 0.7);
-      font-family: 'Montserrat', sans-serif;
-      font-size: 13px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .close-btn:hover,
-    .toc-btn:hover {
-      background: rgba(255, 255, 255, 0.1);
-      color: white;
-    }
-
-    /* TOC Button active state */
-    .toc-btn.active {
-      background: rgba(212, 175, 55, 0.2);
-      border-color: #d4af37;
-      color: #d4af37;
-    }
-
-    /* Open Instruction */
-    .open-hint {
-      position: absolute;
-      bottom: 35px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-family: 'Montserrat', sans-serif;
-      font-size: 15px;
-      color: rgba(255, 255, 255, 0.6);
-      text-align: center;
-      animation: pulse 2s ease-in-out infinite;
-      z-index: 50;
-    }
-
-    @keyframes pulse {
-
-      0%,
-      100% {
-        opacity: 0.6;
-      }
-
-      50% {
-        opacity: 1;
-      }
-    }
-
-    /* Video Modal */
-    .video-modal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.95);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.4s ease;
-    }
-
-    .video-modal.active {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .modal-content {
-      position: relative;
-      width: 90%;
-      max-width: 1200px;
-      aspect-ratio: 16/9;
-    }
-
-    .modal-content video {
-      width: 100%;
-      height: 100%;
-      border-radius: 8px;
-    }
-
-    .modal-close {
-      position: absolute;
-      top: -50px;
-      right: 0;
-      width: 45px;
-      height: 45px;
-      background: rgba(255, 255, 255, 0.1);
-      border: none;
-      border-radius: 50%;
-      color: white;
-      font-size: 26px;
-      cursor: pointer;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      transition: all 0.3s ease;
-    }
-
-    .modal-close:hover {
-      background: rgba(255, 255, 255, 0.2);
-      transform: rotate(90deg);
-    }
-
-    /* States */
-    /* Fix: Hide cover completely when open */
-    /* Updated by: BaoTQ - 27/01/2026 */
-    .book.open .cover-front {
-      width: 50%;
-      left: 50%;
-      transform: rotateY(-180deg);
-      /* HIDE COMPLETELY to avoid blocking left content */
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
-
-    .book.open .pages-container,
-    .book.open .back-board {
-      visibility: visible;
-      opacity: 1;
-      pointer-events: auto;
-      transition: visibility 0s 0s, opacity 0.3s 0.6s;
-    }
-
-    /* Page layering */
-    .page {
-      z-index: 10;
-    }
-
-    .page:nth-child(1) {
-      z-index: 18;
-    }
-
-    .page:nth-child(2) {
-      z-index: 17;
-    }
-
-    .page:nth-child(3) {
-      z-index: 16;
-    }
-
-    .page:nth-child(4) {
-      z-index: 15;
-    }
-
-    .page:nth-child(5) {
-      z-index: 14;
-    }
-
-    .page:nth-child(6) {
-      z-index: 13;
-    }
-
-    .page:nth-child(7) {
-      z-index: 12;
-    }
-
-    .page:nth-child(8) {
-      z-index: 11;
-    }
-
-    .page.flipped {
-      z-index: 5 !important;
-    }
-
-    /* Scrollbar */
-    ::-webkit-scrollbar {
-      width: 7px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background: rgba(0, 0, 0, 0.05);
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: rgba(212, 175, 55, 0.4);
-      border-radius: 3px;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-      background: rgba(212, 175, 55, 0.6);
-    }
-
-    /* ============================================
-      RESPONSIVE DESIGN
-      Mobile-first approach with breakpoints at:
-      - 1500px: Desktop large
-      - 1200px: Laptop
-      - 900px: Tablet
-      - 768px: Mobile large
-      - 480px: Mobile small
-      ============================================ */
-    @media (max-width: 1500px) {
-      .book {
-        width: 850px;
-        height: 595px;
-      }
-
-      .thank-you-content {
-        max-width: 650px;
-        padding: 55px 42px;
-      }
-
-      .thank-you-title {
-        font-size: 40px;
-      }
-
-      .team-photo-container {
-        width: 520px;
-        height: 330px;
-      }
-    }
-
-    @media (max-width: 1200px) {
-      .book {
-        width: 700px;
-        height: 490px;
-      }
-
-      .cover-title {
-        font-size: 48px;
-      }
-
-      .page-content {
-        font-size: 15px;
-      }
-
-      .thank-you-content {
-        max-width: 580px;
-        padding: 45px 38px;
-      }
-
-      .thank-you-title {
-        font-size: 36px;
-      }
-
-      .thank-you-subtitle {
-        font-size: 14px;
-      }
-
-      .team-photo-container {
-        width: 460px;
-        height: 290px;
-      }
-
-      .team-members h4 {
-        font-size: 16px;
-      }
-
-      .member-tag {
-        font-size: 11px;
-        padding: 6px 13px;
-      }
-    }
-
-    @media (max-width: 900px) {
-      .book {
-        width: 600px;
-        height: 420px;
-      }
-
-      .cover-title {
-        font-size: 40px;
-      }
-
-      .thank-you-content {
-        max-width: 500px;
-        padding: 40px 32px;
-      }
-
-      .thank-you-title {
-        font-size: 32px;
-      }
-
-      .thank-you-subtitle {
-        font-size: 13px;
-        margin-bottom: 25px;
-      }
-
-      .team-photo-container {
-        width: 400px;
-        height: 255px;
-      }
-
-      .member-tag {
-        font-size: 10px;
-        padding: 5px 11px;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .book {
-        width: 90vw;
-        height: calc(90vw * 0.7);
-      }
-
-      .cover-title {
-        font-size: 32px;
-      }
-
-      .thank-you-content {
-        max-width: 88vw;
-        padding: 35px 28px;
-      }
-
-      .thank-you-title {
-        font-size: 28px;
-        margin-bottom: 18px;
-      }
-
-      .thank-you-subtitle {
-        font-size: 12px;
-        margin-bottom: 22px;
-        line-height: 1.7;
-      }
-
-      .team-photo-container {
-        width: 100%;
-        max-width: 380px;
-        height: 240px;
-        margin: 22px auto;
-      }
-
-      .team-members {
-        margin-top: 20px;
-        padding-top: 18px;
-      }
-
-      .team-members h4 {
-        font-size: 15px;
-        margin-bottom: 12px;
-      }
-
-      .members-list {
-        gap: 8px;
-      }
-
-      .member-tag {
-        font-size: 10px;
-        padding: 5px 10px;
-      }
-
-      .back-btn {
-        top: 20px;
-        left: 20px;
-        padding: 12px 20px;
-        font-size: 13px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .thank-you-content {
-        max-width: 92vw;
-        padding: 28px 22px;
-      }
-
-      .thank-you-title {
-        font-size: 24px;
-        margin-bottom: 15px;
-      }
-
-      .thank-you-subtitle {
-        font-size: 11px;
-        margin-bottom: 18px;
-      }
-
-      .team-photo-container {
-        width: 100%;
-        max-width: 340px;
-        height: 215px;
-        margin: 18px auto;
-      }
-
-      .team-members h4 {
-        font-size: 14px;
-        margin-bottom: 10px;
-      }
-
-      .members-list {
-        gap: 6px;
-      }
-
-      .member-tag {
-        font-size: 9px;
-        padding: 4px 8px;
-      }
-
-      .back-btn {
-        top: 15px;
-        left: 15px;
-        padding: 10px 16px;
-        font-size: 12px;
-      }
-
-      .back-btn svg {
-        width: 16px;
-        height: 16px;
-      }
-    }
-  </style>
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
@@ -1360,12 +32,7 @@
     Quay lại sách
   </button>
 
-  <!-- ============================================
-    THANK YOU SCREEN
-    Author: BaoTQ
-    Date: 2026-01-29
-    Description: End screen with team photo and members
-   ============================================  -->
+  <!-- Thank You Screen -->
   <div class="thank-you-screen" id="thankYouScreen">
     <div class="thank-you-content">
       <h1 class="thank-you-title">Cảm ơn bạn!</h1>
@@ -1375,20 +42,19 @@
       </p>
 
       <div class="team-photo-container">
-        <!-- Thay thế tên file bằng tên ảnh của bạn trong thư mục Image -->
-        <img src="Image/team-photo.jpg" alt="Team Photo" class="team-photo"
-          onerror="this.parentElement.innerHTML='<div class=team-photo-placeholder>📸<br>Thêm ảnh nhóm vào thư mục Image<br>(Ví dụ: Image/team-photo.jpg)</div>'">
+        <img src="https://lh3.googleusercontent.com/d/1FUME5QMrsEyPZ-zI0RkV3xr7G4ennRZB" alt="Team Photo" class="team-photo"
+          onerror="this.parentElement.innerHTML='<div class=team-photo-placeholder>📸<br>Thêm ảnh nhóm vào thư mục assets/images<br>(Ví dụ: assets/images/team-photo.jpg)</div>'">
       </div>
 
       <div class="team-members">
         <h4>Thành viên nhóm</h4>
         <div class="members-list">
-          <span class="member-tag">👨‍💻 Trần Quốc Bảo </span>
-          <span class="member-tag">🎨 Nguyễn Xuân Nguyên Giáp </span>
-          <span class="member-tag">📝 Đặng Đức Cương </span>
-          <span class="member-tag">🔧 Vũ Quang Diệu </span>
-          <span class="member-tag">📊 Lê Thành Linh </span>
-          <span class="member-tag">📊 Phạm Tiến Phát </span>
+          <span class="member-tag">👨‍💻 Trần Quốc Bảo</span>
+          <span class="member-tag">🎨 Nguyễn Xuân Nguyên Giáp</span>
+          <span class="member-tag">📝 Đặng Đức Cương</span>
+          <span class="member-tag">🔧 Vũ Quang Diệu</span>
+          <span class="member-tag">📊 Lê Thành Linh</span>
+          <span class="member-tag">📊 Phạm Tiến Phát</span>
         </div>
       </div>
     </div>
@@ -1460,7 +126,7 @@
                 <p>Video giới thiệu tổng quan về dự án sáng tạo, trình bày ý tưởng và quá trình thực hiện.</p>
 
                 <div class="video-container">
-                  <video id="pageVideo" src="Video/HCM202TK.mp4" preload="metadata"></video>
+                  <video id="pageVideo" src="assets/videos/HCM202TK.mp4" preload="metadata"></video>
                   <div class="video-overlay" id="videoOverlay">
                     <div class="play-button">
                       <svg viewBox="0 0 24 24">
@@ -1500,16 +166,13 @@
                 <span class="page-number">Trang 2</span>
               </div>
               <div class="page-content">
-                <p>Dự án "Sản phẩm sáng tạo" được khởi xướng với mục đích mang đến giải pháp đổi mới trong lĩnh vực công
-                  nghệ giáo dục.</p>
+                <p>Dự án "Sản phẩm sáng tạo" được khởi xướng với mục đích mang đến giải pháp đổi mới trong lĩnh vực công nghệ giáo dục.</p>
 
                 <h4>Bối cảnh ra đời</h4>
-                <p>Trong bối cảnh chuyển đổi số đang diễn ra mạnh mẽ, nhu cầu về các công cụ học tập tương tác và trực
-                  quan ngày càng tăng cao. Dự án này đáp ứng nhu cầu đó.</p>
+                <p>Trong bối cảnh chuyển đổi số đang diễn ra mạnh mẽ, nhu cầu về các công cụ học tập tương tác và trực quan ngày càng tăng cao. Dự án này đáp ứng nhu cầu đó.</p>
 
                 <h4>Ý tưởng cốt lõi</h4>
-                <p>Kết hợp công nghệ web hiện đại với thiết kế trải nghiệm người dùng để tạo ra sản phẩm vừa hữu ích vừa
-                  thú vị.</p>
+                <p>Kết hợp công nghệ web hiện đại với thiết kế trải nghiệm người dùng để tạo ra sản phẩm vừa hữu ích vừa thú vị.</p>
               </div>
             </div>
             <div class="page-back">
@@ -1520,13 +183,13 @@
               <div class="page-content">
                 <h4>Thành viên nhóm</h4>
                 <ul>
-                  <li><strong>Trưởng nhóm:</strong> [BaoTQ]</li>
-                  <li><strong>Thiết kế/Phát triển:</strong> [GiapNX], [BaoTQ]</li>
-                  <li><strong>Nội dung:</strong> [Mọi thành viên nhóm chủ đề 3]</li>
+                  <li><strong>Trưởng nhóm:</strong> Trần Quốc Bảo</li>
+                  <li><strong>Thiết kế/Phát triển:</strong> Trần Quốc Bảo, Nguyễn Xuân Nguyên Giáp</li>
+                  <li><strong>Nội dung:</strong> Mọi thành viên nhóm chủ đề 3</li>
                 </ul>
 
                 <h4>Giảng viên hướng dẫn</h4>
-                <p>[Thầy Mai K Đa]</p>
+                <p>Thầy Mai K Đa</p>
                 <p>damk@fpt.edu.vn</p>
               </div>
             </div>
@@ -1549,8 +212,7 @@
                 </ul>
 
                 <h4>Phạm vi dự án</h4>
-                <p>Dự án tập trung vào việc xây dựng một nền tảng tương tác đa phương tiện, phục vụ cho mục đích giáo
-                  dục và trình bày thông tin.</p>
+                <p>Dự án tập trung vào việc xây dựng một nền tảng tương tác đa phương tiện, phục vụ cho mục đích giáo dục và trình bày thông tin.</p>
               </div>
             </div>
             <div class="page-back">
@@ -1587,8 +249,7 @@
                 </ul>
 
                 <h4>Quy trình phát triển</h4>
-                <p>Áp dụng phương pháp Agile với các sprint 2 tuần, đảm bảo sản phẩm được cải tiến liên tục dựa trên
-                  phản hồi.</p>
+                <p>Áp dụng phương pháp Agile với các sprint 2 tuần, đảm bảo sản phẩm được cải tiến liên tục dựa trên phản hồi.</p>
               </div>
             </div>
             <div class="page-back">
@@ -1625,8 +286,7 @@
                 </ul>
 
                 <h4>Điểm nhấn sáng tạo</h4>
-                <p>Hiệu ứng sách 3D với khả năng lật trang realistic, mang đến trải nghiệm đọc số hóa gần gũi với sách
-                  truyền thống.</p>
+                <p>Hiệu ứng sách 3D với khả năng lật trang realistic, mang đến trải nghiệm đọc số hóa gần gũi với sách truyền thống.</p>
               </div>
             </div>
             <div class="page-back">
@@ -1637,7 +297,7 @@
               <div class="page-content">
                 <h4>Performance Metrics</h4>
                 <ul>
-                  <li>Thời gian tải: < 2 giây</li>
+                  <li>Thời gian tải: &lt; 2 giây</li>
                   <li>Frame rate: 60 FPS</li>
                   <li>Lighthouse Score: 95+</li>
                   <li>Responsive trên mọi thiết bị</li>
@@ -1663,8 +323,7 @@
                 </ul>
 
                 <h4>Thách thức đã vượt qua</h4>
-                <p>Tối ưu hóa hiệu suất 3D trên các thiết bị cấu hình thấp là thách thức lớn nhất, đã được giải quyết
-                  bằng các kỹ thuật CSS tiên tiến.</p>
+                <p>Tối ưu hóa hiệu suất 3D trên các thiết bị cấu hình thấp là thách thức lớn nhất, đã được giải quyết bằng các kỹ thuật CSS tiên tiến.</p>
               </div>
             </div>
             <div class="page-back">
@@ -1701,8 +360,7 @@
                 </ul>
 
                 <h4>Mở rộng ứng dụng</h4>
-                <p>Phát triển thành nền tảng tạo sách 3D online, cho phép người dùng tự tạo và chia sẻ sách của riêng
-                  mình.</p>
+                <p>Phát triển thành nền tảng tạo sách 3D online, cho phép người dùng tự tạo và chia sẻ sách của riêng mình.</p>
               </div>
             </div>
             <div class="page-back">
@@ -1723,7 +381,7 @@
                   <li><strong>SDT:</strong> 08xxxxxxxx</li>
                   <li><strong>Email:</strong> baotqwork20@gmail.com</li>
                   <li>
-                    <strong>Follow:</strong><br>
+                    <strong>Follow us:</strong><br>
                     github.com/lystuw25<br>
                     github.com/NguyenGiap2804
                   </li>
@@ -1746,12 +404,10 @@
                     <div class="ref-content">
                       <div class="ref-title">CSS 3D Transforms - MDN Web Docs</div>
                       <div class="ref-desc">Tài liệu kỹ thuật về CSS 3D transformations</div>
-                      <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_transforms" target="_blank"
-                        rel="noopener noreferrer" class="ref-link">
+                      <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_transforms" target="_blank" rel="noopener noreferrer" class="ref-link">
                         Xem tài liệu
                         <svg viewBox="0 0 24 24" fill="currentColor">
-                          <path
-                            d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7zm-2 16H5V7h7V5H5a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-7h-2v7H7z" />
+                          <path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7zm-2 16H5V7h7V5H5a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-7h-2v7H7z" />
                         </svg>
                       </a>
                     </div>
@@ -1762,12 +418,10 @@
                     <div class="ref-content">
                       <div class="ref-title">W3Schools CSS Tutorial</div>
                       <div class="ref-desc">Hướng dẫn CSS từ cơ bản đến nâng cao</div>
-                      <a href="https://www.w3schools.com/css/" target="_blank" rel="noopener noreferrer"
-                        class="ref-link">
+                      <a href="https://www.w3schools.com/css/" target="_blank" rel="noopener noreferrer" class="ref-link">
                         Truy cập website
                         <svg viewBox="0 0 24 24" fill="currentColor">
-                          <path
-                            d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7zm-2 16H5V7h7V5H5a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-7h-2v7H7z" />
+                          <path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7zm-2 16H5V7h7V5H5a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-7h-2v7H7z" />
                         </svg>
                       </a>
                     </div>
@@ -1781,8 +435,7 @@
                       <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" class="ref-link">
                         Xem video
                         <svg viewBox="0 0 24 24" fill="currentColor">
-                          <path
-                            d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7zm-2 16H5V7h7V5H5a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-7h-2v7H7z" />
+                          <path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7zm-2 16H5V7h7V5H5a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-7h-2v7H7z" />
                         </svg>
                       </a>
                     </div>
@@ -1793,12 +446,10 @@
                     <div class="ref-content">
                       <div class="ref-title">Sách: CSS Secrets - Lea Verou</div>
                       <div class="ref-desc">Cuốn sách về các kỹ thuật CSS nâng cao</div>
-                      <a href="https://www.oreilly.com/library/view/css-secrets/9781449372736/" target="_blank"
-                        rel="noopener noreferrer" class="ref-link">
+                      <a href="https://www.oreilly.com/library/view/css-secrets/9781449372736/" target="_blank" rel="noopener noreferrer" class="ref-link">
                         Xem thông tin
                         <svg viewBox="0 0 24 24" fill="currentColor">
-                          <path
-                            d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7zm-2 16H5V7h7V5H5a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-7h-2v7H7z" />
+                          <path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7zm-2 16H5V7h7V5H5a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-7h-2v7H7z" />
                         </svg>
                       </a>
                     </div>
@@ -1821,8 +472,7 @@
                       <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="ref-link">
                         Xem mã nguồn
                         <svg viewBox="0 0 24 24" fill="currentColor">
-                          <path
-                            d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7zm-2 16H5V7h7V5H5a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-7h-2v7H7z" />
+                          <path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7zm-2 16H5V7h7V5H5a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-7h-2v7H7z" />
                         </svg>
                       </a>
                     </div>
@@ -1836,8 +486,7 @@
                       <a href="https://codepen.io" target="_blank" rel="noopener noreferrer" class="ref-link">
                         Xem demo
                         <svg viewBox="0 0 24 24" fill="currentColor">
-                          <path
-                            d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7zm-2 16H5V7h7V5H5a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-7h-2v7H7z" />
+                          <path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7zm-2 16H5V7h7V5H5a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-7h-2v7H7z" />
                         </svg>
                       </a>
                     </div>
@@ -1848,12 +497,10 @@
                     <div class="ref-content">
                       <div class="ref-title">Smashing Magazine</div>
                       <div class="ref-desc">Bài viết về web design & development</div>
-                      <a href="https://www.smashingmagazine.com" target="_blank" rel="noopener noreferrer"
-                        class="ref-link">
+                      <a href="https://www.smashingmagazine.com" target="_blank" rel="noopener noreferrer" class="ref-link">
                         Đọc bài viết
                         <svg viewBox="0 0 24 24" fill="currentColor">
-                          <path
-                            d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7zm-2 16H5V7h7V5H5a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-7h-2v7H7z" />
+                          <path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7zm-2 16H5V7h7V5H5a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-7h-2v7H7z" />
                         </svg>
                       </a>
                     </div>
@@ -1878,8 +525,7 @@
           <div class="cover-back">
             <div class="cover-back-content">
               <h3>Chào mừng!</h3>
-              <p>Cảm ơn bạn đã mở cuốn sách này. Hãy khám phá những trang nội dung bên phải và sử dụng mục lục để điều
-                hướng.</p>
+              <p>Cảm ơn bạn đã mở cuốn sách này. Hãy khám phá những trang nội dung bên phải và sử dụng mục lục để điều hướng.</p>
             </div>
           </div>
         </div>
@@ -1918,405 +564,12 @@
   <div class="video-modal" id="videoModal">
     <div class="modal-content">
       <button class="modal-close" id="modalClose">×</button>
-      <video id="modalVideo" src="Video/HCM202TK.mp4" controls></video>
+      <video id="modalVideo" src="assets/videos/HCM202TK.mp4" controls></video>
     </div>
   </div>
 
-  <script>
-    /**
-     * Project: 3D Interactive Book
-     * Description: Creative product presentation with 3D book flipping animation
-     * Author: BaoTQ
-     * Created: January 2026
-     * Last Modified: 2026-01-29
-     */
-
-    // State Machine
-    let isOpen = false;
-    let currentPage = -1;
-    let rotateX = 0;
-    let rotateY = 0;
-    let isDragging = false;
-    let startX, startY;
-    let isTocVisible = false;
-    let isThankYouMode = false;
-
-    // DOM Elements
-    const book = document.getElementById('book');
-    const bookWrapper = document.getElementById('bookWrapper');
-    const coverFront = document.getElementById('coverFront');
-    const pagesContainer = document.getElementById('pagesContainer');
-    const tocPanel = document.getElementById('tocPanel');
-    const controls = document.getElementById('controls');
-    const openHint = document.getElementById('openHint');
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    const closeBtn = document.getElementById('closeBtn');
-    const tocBtn = document.getElementById('tocBtn');
-    const pageIndicator = document.getElementById('pageIndicator');
-    const tocItems = document.querySelectorAll('.toc-item');
-    const pages = document.querySelectorAll('.page');
-    const videoOverlay = document.getElementById('videoOverlay');
-    const videoModal = document.getElementById('videoModal');
-    const modalClose = document.getElementById('modalClose');
-    const pageVideo = document.getElementById('pageVideo');
-    const modalVideo = document.getElementById('modalVideo');
-    const scene = document.getElementById('scene');
-    const thankYouScreen = document.getElementById('thankYouScreen');
-    const backBtn = document.getElementById('backBtn');
-
-    // Generate Stars - 300 STARS + SHOOTING STARS
-    function generateStars() {
-      const starsContainer = document.getElementById('stars');
-
-      // Regular stars - 300
-      for (let i = 0; i < 300; i++) {
-        const star = document.createElement('div');
-        star.className = 'star';
-        star.style.left = Math.random() * 100 + '%';
-        star.style.top = Math.random() * 100 + '%';
-        const size = Math.random() * 3 + 1;
-        star.style.width = size + 'px';
-        star.style.height = size + 'px';
-        star.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
-        star.style.setProperty('--min-opacity', Math.random() * 0.3 + 0.1);
-        star.style.animationDelay = Math.random() * 5 + 's';
-        starsContainer.appendChild(star);
-      }
-
-      // Shooting stars - 3
-      for (let i = 0; i < 3; i++) {
-        const shootingStar = document.createElement('div');
-        shootingStar.className = 'shooting-star';
-        shootingStar.style.left = Math.random() * 100 + '%';
-        shootingStar.style.top = Math.random() * 50 + '%';
-        shootingStar.style.animationDelay = (Math.random() * 5 + i * 3) + 's';
-        starsContainer.appendChild(shootingStar);
-      }
-    }
-
-    // Open Book
-    function openBook() {
-      if (isOpen) return;
-
-      isOpen = true;
-      currentPage = 0;
-      book.classList.add('open');
-      controls.classList.add('visible');
-      openHint.style.display = 'none';
-
-      // Don't show TOC immediately
-      isTocVisible = false;
-      tocPanel.classList.remove('active');
-      tocBtn.classList.remove('active');
-
-      updateUI();
-    }
-
-    // Close Book with stagger animation
-    function closeBook() {
-      if (!isOpen) return;
-
-      const flippedPages = [...pages].filter(p => p.classList.contains('flipped'));
-      const staggerDelay = 100;
-
-      flippedPages.reverse().forEach((page, index) => {
-        setTimeout(() => {
-          page.classList.remove('flipped');
-        }, index * staggerDelay);
-      });
-
-      const totalDelay = flippedPages.length * staggerDelay + 400;
-
-      setTimeout(() => {
-        isOpen = false;
-        currentPage = -1;
-        isTocVisible = false;
-        tocPanel.classList.remove('active');
-        tocBtn.classList.remove('active');
-        book.classList.remove('open');
-        controls.classList.remove('visible');
-        openHint.style.display = 'block';
-        updateUI();
-      }, totalDelay);
-    }
-
-    // Show Thank You Screen
-    function showThankYou() {
-      isThankYouMode = true;
-
-      // Hide book and controls with fade
-      bookWrapper.classList.add('hidden');
-      controls.classList.remove('visible');
-
-      // Show thank you screen after book fades
-      setTimeout(() => {
-        thankYouScreen.classList.add('active');
-        backBtn.classList.add('visible');
-      }, 600);
-    }
-
-    // Back to Book
-    function backToBook() {
-      isThankYouMode = false;
-
-      // Hide thank you screen
-      thankYouScreen.classList.remove('active');
-      backBtn.classList.remove('visible');
-
-      // Show book again
-      setTimeout(() => {
-        bookWrapper.classList.remove('hidden');
-        // Reset to first page
-        pages.forEach(page => page.classList.remove('flipped'));
-        currentPage = 0;
-        controls.classList.add('visible');
-        updateUI();
-      }, 600);
-    }
-
-    // Toggle TOC
-    function toggleToc() {
-      if (!isOpen) return;
-
-      isTocVisible = !isTocVisible;
-      tocPanel.classList.toggle('active', isTocVisible);
-      tocBtn.classList.toggle('active', isTocVisible);
-    }
-
-    // Flip to Next Page
-    function flipNext() {
-      if (!isOpen) return;
-
-      if (currentPage < 7) {
-        pages[currentPage].classList.add('flipped');
-        currentPage++;
-        updateUI();
-      } else if (currentPage === 7) {
-        // At last page, show Thank You screen
-        showThankYou();
-      }
-    }
-
-    // Flip to Previous Page
-    function flipPrev() {
-      if (!isOpen) return;
-
-      if (currentPage > 0) {
-        currentPage--;
-        pages[currentPage].classList.remove('flipped');
-        updateUI();
-      } else if (currentPage === 0) {
-        closeBook();
-      }
-    }
-
-    // Go to specific page
-    function goToPage(pageIndex) {
-      if (!isOpen || pageIndex < 0 || pageIndex > 7) return;
-
-      if (pageIndex > currentPage) {
-        for (let i = currentPage; i < pageIndex; i++) {
-          setTimeout(() => {
-            pages[i].classList.add('flipped');
-          }, (i - currentPage) * 150);
-        }
-      } else if (pageIndex < currentPage) {
-        for (let i = currentPage - 1; i >= pageIndex; i--) {
-          setTimeout(() => {
-            pages[i].classList.remove('flipped');
-          }, (currentPage - 1 - i) * 150);
-        }
-      }
-
-      setTimeout(() => {
-        currentPage = pageIndex;
-        updateUI();
-
-        // Hide TOC after navigation
-        isTocVisible = false;
-        tocPanel.classList.remove('active');
-        tocBtn.classList.remove('active');
-      }, Math.abs(pageIndex - currentPage) * 150 + 100);
-    }
-
-    // Update UI
-    function updateUI() {
-      if (isOpen) {
-        pageIndicator.textContent = `Trang ${currentPage + 1}/8`;
-      }
-
-      tocItems.forEach((item, index) => {
-        item.classList.toggle('active', index === currentPage);
-      });
-
-      prevBtn.disabled = false;
-      nextBtn.disabled = false;
-    }
-
-    // Video Modal Functions
-    function openVideoModal() {
-      bookWrapper.classList.add('rotated');
-
-      setTimeout(() => {
-        videoModal.classList.add('active');
-        modalVideo.currentTime = 0;
-        modalVideo.play();
-      }, 800);
-    }
-
-    function closeVideoModal() {
-      modalVideo.pause();
-      videoModal.classList.remove('active');
-
-      setTimeout(() => {
-        bookWrapper.classList.remove('rotated');
-      }, 100);
-    }
-
-    // Mouse/Touch drag for book rotation
-    function handleDragStart(e) {
-      if (isOpen || isThankYouMode) return;
-      isDragging = true;
-      startX = e.clientX || e.touches[0].clientX;
-      startY = e.clientY || e.touches[0].clientY;
-    }
-
-    function handleDragMove(e) {
-      if (!isDragging || isOpen || isThankYouMode) return;
-
-      const x = e.clientX || e.touches[0].clientX;
-      const y = e.clientY || e.touches[0].clientY;
-
-      const deltaX = (x - startX) * 0.3;
-      const deltaY = (y - startY) * 0.3;
-
-      rotateY = Math.max(-30, Math.min(30, deltaX));
-      rotateX = Math.max(-15, Math.min(15, -deltaY));
-
-      book.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-    }
-
-    function handleDragEnd() {
-      if (!isDragging) return;
-      isDragging = false;
-
-      book.style.transition = 'transform 0.5s ease';
-      book.style.transform = 'rotateX(0deg) rotateY(0deg)';
-      rotateX = 0;
-      rotateY = 0;
-
-      setTimeout(() => {
-        book.style.transition = '';
-      }, 500);
-    }
-
-    // Hover effect
-    function handleHover(e) {
-      if (isOpen || isDragging || isThankYouMode) return;
-
-      const rect = scene.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-
-      const x = (e.clientX - centerX) / (rect.width / 2);
-      const y = (e.clientY - centerY) / (rect.height / 2);
-
-      rotateY = x * 10;
-      rotateX = -y * 5;
-
-      book.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-    }
-
-    function resetHover() {
-      if (isOpen || isDragging || isThankYouMode) return;
-
-      book.style.transition = 'transform 0.5s ease';
-      book.style.transform = 'rotateX(0deg) rotateY(0deg)';
-
-      setTimeout(() => {
-        book.style.transition = '';
-      }, 500);
-    }
-
-    // Event Listeners - CLICK ANYWHERE ON COVER
-    coverFront.addEventListener('click', (e) => {
-      if (!isOpen && !isThankYouMode) {
-        openBook();
-        e.stopPropagation();
-      }
-    });
-
-    prevBtn.addEventListener('click', flipPrev);
-    nextBtn.addEventListener('click', flipNext);
-    closeBtn.addEventListener('click', closeBook);
-    tocBtn.addEventListener('click', toggleToc);
-    backBtn.addEventListener('click', backToBook);
-
-    tocItems.forEach((item) => {
-      item.addEventListener('click', () => {
-        const pageIndex = parseInt(item.dataset.page);
-        goToPage(pageIndex);
-      });
-    });
-
-    videoOverlay.addEventListener('click', (e) => {
-      e.stopPropagation();
-      openVideoModal();
-    });
-
-    modalClose.addEventListener('click', closeVideoModal);
-    videoModal.addEventListener('click', (e) => {
-      if (e.target === videoModal) {
-        closeVideoModal();
-      }
-    });
-
-    // Drag events
-    scene.addEventListener('mousedown', handleDragStart);
-    scene.addEventListener('mousemove', handleDragMove);
-    scene.addEventListener('mouseup', handleDragEnd);
-    scene.addEventListener('mouseleave', handleDragEnd);
-
-    scene.addEventListener('touchstart', handleDragStart);
-    scene.addEventListener('touchmove', handleDragMove);
-    scene.addEventListener('touchend', handleDragEnd);
-
-    // Hover events
-    scene.addEventListener('mousemove', handleHover);
-    scene.addEventListener('mouseleave', resetHover);
-
-    // Keyboard navigation
-    document.addEventListener('keydown', (e) => {
-      if (isThankYouMode) {
-        if (e.key === 'Escape' || e.key === 'Backspace') {
-          backToBook();
-        }
-        return;
-      }
-
-      if (!isOpen) return;
-
-      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-        flipNext();
-      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-        flipPrev();
-      } else if (e.key === 'Escape') {
-        if (videoModal.classList.contains('active')) {
-          closeVideoModal();
-        } else if (isTocVisible) {
-          toggleToc();
-        } else {
-          closeBook();
-        }
-      } else if (e.key === 't' || e.key === 'T') {
-        toggleToc();
-      }
-    });
-
-    // Initialize
-    generateStars();
-  </script>
+  <!-- Main JavaScript -->
+  <script src="js/main.js"></script>
 </body>
 
 </html>

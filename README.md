@@ -39,27 +39,20 @@ Built with pure HTML, CSS, and JavaScript, no backend required.
 
 ## Project Structure
 
+```bash
+
 project/
-
 ├── index.html
-
 ├── css/
-
 │   └── style.css
-
 ├── js/
-
 │   └── main.js
-
 ├── assets/
-
 │   ├── images/
-
 │   └── videos/
-
 │       └── HCM202TK.mp4
-
 └── README.md
+```
 
 
 ---
@@ -74,17 +67,11 @@ The website presents a narrated script and visual content that highlights:
 ---
 
 ## Team – 6Star Champions  
-- Trần Quốc Bảo – Designer / Developer
+- Leader: Trần Quốc Bảo
 
-- Nguyễn Xuân Nguyên Giáp – Designer / Developer
+- Designer / Developer: Trần Quốc Bảo, Nguyễn Xuân Nguyên Giáp 
 
-- Đặng Đức Cương 
-
-- Vũ Quang Diệu 
-
-- Lê Thành Linh
-
-- Phạm Tiến Phát
+- Content: Đặng Đức Cương, Vũ Quang Diệu, Lê Thành Linh, Phạm Tiến Phát
 ---
 
 ## License  
